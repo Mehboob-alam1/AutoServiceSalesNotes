@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Webcam from 'react-webcam'; // For camera capture
+import Webcam from 'react-webcam';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { ref as databaseRef, set } from 'firebase/database';
 import { storage, database } from './firebase';
-import axios from 'axios'; // Import axios for making HTTP requests
-import './App.css'; // Importing the CSS file
+import axios from 'axios';
+import './App.css';
 
 function App() {
   const [formData, setFormData] = useState({
@@ -21,7 +21,6 @@ function App() {
   const [imageUrl, setImageUrl] = useState('');
   const [capturedImageUrl, setCapturedImageUrl] = useState('');
   const [audioUrl, setAudioUrl] = useState('');
-  const [loading, setLoading] = useState(false); // <-- New state to track loading
 
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -29,7 +28,7 @@ function App() {
   const [audioChunks, setAudioChunks] = useState([]);
 
   useEffect(() => {
-    fetchLocation(); // Automatically fetch location on component mount
+    fetchLocation();
   }, []);
 
   const handleChange = (e) => {
@@ -44,7 +43,7 @@ function App() {
     const imageSrc = webcamRef.current.getScreenshot();
     if (imageSrc) {
       setImageUrl(imageSrc);
-      setCapturedImageUrl(imageSrc); // Set captured image URL for display
+      setCapturedImageUrl(imageSrc);
     } else {
       console.error('Image capture failed!');
     }
@@ -137,14 +136,50 @@ function App() {
     }
   };
 
+  const sendNotification = async ({
+    user,
+    phone,
+    retailName,
+    time,
+    gps,
+    metGM,
+    metSD,
+    linkToBusCard,
+    audioFile,
+  }) => {
+    const channel = 'dealervisit';
+    const message = `User:${phone} - RetailName:${retailName} - Phone Number:${phone} - Time:${time} - LinkToBusCard:${linkToBusCard} - GPS:${gps} - MetGM:${metGM} - MetSD:${metSD}`;
+    const slackUrl = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/sendSlackNotification?channel=${channel}&message=${encodeURIComponent(message)}`;
+
+    console.log('Constructed Slack URL:', slackUrl);
+    try {
+      const slackResponse = await axios.get(slackUrl);
+      if (slackResponse.status === 200) {
+        console.log('Notification sent successfully');
+      } else {
+        console.log('Failed to send Slack notification:', slackResponse.status);
+      }
+
+      const apiMessage = `User: ${user}, Retail Name: ${retailName}, Phone Number: ${phone}, Time: ${time}, GPS: ${gps}, Met GM: ${metGM}, Met SD: ${metSD}, Bus Card: ${linkToBusCard}, Audio: ${audioFile}`;
+      const apiUrl = `https://common.autoservice.ai/app?phone=${phone}&message=${encodeURIComponent(apiMessage)}`;
+      console.log('Constructed API URL:', apiUrl);
+
+      const apiResponse = await axios.get(apiUrl);
+      if (apiResponse.status === 200) {
+        console.log('API request sent successfully');
+      } else {
+        console.log('Failed to send API request:', apiResponse.status);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);  // Start loading
 
-    // Validate all fields except audio
     if (!formData.phoneNumber || !formData.retailName || !formData.visitSummary || !formData.nextAction || !formData.interestLevel || !formData.metGM || !formData.metSD || !imageUrl) {
       alert('Please fill all fields and capture an image before submitting.');
-      setLoading(false);  // Stop loading on error
       return;
     }
 
@@ -153,7 +188,6 @@ function App() {
 
     if (!audioDownloadUrl || !imageDownloadUrl) {
       alert('Failed to upload audio or image.');
-      setLoading(false);  // Stop loading on error
       return;
     }
 
@@ -166,8 +200,19 @@ function App() {
       ...formData,
     });
 
+    await sendNotification({
+      user: formData.phoneNumber,
+      phone: formData.phoneNumber,
+      retailName: formData.retailName,
+      time: new Date().toISOString(),
+      gps: `${location.latitude}, ${location.longitude}`,
+      metGM: formData.metGM,
+      metSD: formData.metSD,
+      linkToBusCard: imageDownloadUrl,
+      audioFile: audioDownloadUrl,
+    });
+
     alert('Data successfully submitted');
-    setLoading(false);  // Stop loading when done
   };
 
   return (
@@ -194,30 +239,29 @@ function App() {
 
         <label>Interested</label>
         <select name="interestLevel" required onChange={handleInterestChange}>
-          <option value="" disabled selected>Select interest level</option>
-          <option value="Hot">1-30 days close</option>
-          <option value="Warm">30-60 days</option>
-          <option value="Cold">Cold</option>
+          <option value="">Select...</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
         </select>
 
         <label>Visit Summary</label>
-        <textarea name="visitSummary" required onChange={handleChange}></textarea>
+        <textarea name="visitSummary" required onChange={handleChange} />
 
         <label>Next Action</label>
-        <textarea name="nextAction" required onChange={handleChange}></textarea>
+        <textarea name="nextAction" required onChange={handleChange} />
 
-        <div className="webcam-container">
-          <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" />
-          <button type="button" onClick={captureImage}>Capture Image</button>
-          {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
-        </div>
+        <label>Image Capture</label>
+        <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
+        <button type="button" onClick={captureImage}>Capture Image</button>
+        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" />}
 
+        <label>Audio Recording</label>
         <button type="button" onClick={isRecording ? stopRecording : startRecording}>
           {isRecording ? 'Stop Recording' : 'Start Recording'}
         </button>
 
-        {/* Conditionally render a loading indicator */}
-        {loading ? <p>Saving...</p> : <button type="submit">Save</button>}
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
