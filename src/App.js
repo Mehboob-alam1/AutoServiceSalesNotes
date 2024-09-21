@@ -21,6 +21,7 @@ function App() {
   const [imageUrl, setImageUrl] = useState('');
   const [capturedImageUrl, setCapturedImageUrl] = useState('');
   const [audioUrl, setAudioUrl] = useState('');
+  const [loading, setLoading] = useState(false); // <-- New state to track loading
 
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -136,65 +137,14 @@ function App() {
     }
   };
 
-  // New function to send notification
-  const sendNotification = async ({
-    user,
-    phone,
-    retailName,
-    time,
-    gps,
-    metGM,
-    metSD,
-    linkToBusCard,
-    audioFile,
-  }) => {
-    const channel = 'dealervisit';
-
-    // Construct the message for Slack notification
-    const message = `User:${user} - RetailName:${retailName} - Time:${time} - LinkToBusCard:${linkToBusCard} - GPS:${gps} - MetGM:${metGM} - MetSD:${metSD} - AudioFile:${audioFile}`;
-
-    // Construct the Slack notification URL
-    const slackUrl = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/sendSlackNotification?channel=${channel}&message=${encodeURIComponent(message)}`;
-
-    console.log('Constructed Slack URL:', slackUrl); // Print URL for debugging
-
-    try {
-      // Send Slack notification
-      const slackResponse = await axios.get(slackUrl);
-
-      if (slackResponse.status === 200) {
-        console.log('Notification sent successfully');
-      } else {
-        console.log('Failed to send Slack notification:', slackResponse.status);
-      }
-
-      // Construct the message for the API request by concatenating all fields
-      const apiMessage = `User: ${user}, Retail Name: ${retailName}, Time: ${time}, GPS: ${gps}, Met GM: ${metGM}, Met SD: ${metSD}, Bus Card: ${linkToBusCard}, Audio: ${audioFile}`;
-
-      // Construct the API URL
-      const apiUrl = `https://common.autoservice.ai/app?phone=${phone}&message=${encodeURIComponent(apiMessage)}`;
-
-      console.log('Constructed API URL:', apiUrl); // Print API URL for debugging
-
-      // Send request to the external API
-      const apiResponse = await axios.get(apiUrl);
-
-      if (apiResponse.status === 200) {
-        console.log('API request sent successfully');
-      } else {
-        console.log('Failed to send API request:', apiResponse.status);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);  // Start loading
 
     // Validate all fields except audio
     if (!formData.phoneNumber || !formData.retailName || !formData.visitSummary || !formData.nextAction || !formData.interestLevel || !formData.metGM || !formData.metSD || !imageUrl) {
       alert('Please fill all fields and capture an image before submitting.');
+      setLoading(false);  // Stop loading on error
       return;
     }
 
@@ -203,6 +153,7 @@ function App() {
 
     if (!audioDownloadUrl || !imageDownloadUrl) {
       alert('Failed to upload audio or image.');
+      setLoading(false);  // Stop loading on error
       return;
     }
 
@@ -215,20 +166,8 @@ function App() {
       ...formData,
     });
 
-    // Send notification after successful data submission
-    await sendNotification({
-      user: "Your User Name", // replace with actual user
-      phone: formData.phoneNumber,
-      retailName: formData.retailName,
-      time: new Date().toISOString(),
-      gps: `${location.latitude}, ${location.longitude}`,
-      metGM: formData.metGM,
-      metSD: formData.metSD,
-      linkToBusCard: imageDownloadUrl,
-      audioFile: audioDownloadUrl,
-    });
-
     alert('Data successfully submitted');
+    setLoading(false);  // Stop loading when done
   };
 
   return (
@@ -277,7 +216,8 @@ function App() {
           {isRecording ? 'Stop Recording' : 'Start Recording'}
         </button>
 
-        <button type="submit">Save</button>
+        {/* Conditionally render a loading indicator */}
+        {loading ? <p>Saving...</p> : <button type="submit">Save</button>}
       </form>
     </div>
   );
