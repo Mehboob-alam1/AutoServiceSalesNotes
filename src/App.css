@@ -1,90 +1,134 @@
 body {
-  margin: 0;
+  background-color: #001f3f; /* Dark blue background */
+  color: white; /* White text */
   font-family: Arial, sans-serif;
-  background-color: #1a1a2e;
-  color: #ffffff;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  box-sizing: border-box; /* Set box-sizing to border-box for consistent sizing */
 }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background-color: #162447;
-  border-radius: 10px;
-  overflow: auto;
-}
-
-h1 {
-  text-align: center;
-}
-
-label {
-  display: block;
-  margin-top: 10px;
-}
-
-input, textarea, select {
-  width: calc(100% - 40px); /* Added margin padding */
-  padding: 10px;
-  margin: 10px 20px; /* Adds equal margin on the sides */
-  border: none;
-  border-radius: 5px;
-}
-
-textarea {
-  resize: none;
-}
-
-.radio-group {
-  display: flex;
-  justify-content: flex-start; /* Aligning radio buttons to the left */
-  margin-left: 20px; /* Adding left margin for radios */
-  gap: 20px; /* Adding space between them */
-}
-
-.webcam-container {
+.App {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px 20px; /* Add margin around webcam */
+  padding: 10px; /* Reduced padding */
 }
 
-.webcam-container video {
-  width: 80%; /* Reduced size of the webcam */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px; /* Adjusted max width for smaller screens */
+  background-color: #003366; /* Slightly lighter dark blue for the form */
+  padding: 20px;
   border-radius: 10px;
+  margin: auto; /* Center the form */
+}
+
+label {
+  margin: 10px 0 5px;
+  font-size: 18px; /* Increased label size for readability */
+}
+
+input, textarea, select {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #004080; /* Darker blue for inputs */
+  color: white; /* White text for inputs */
+  width: 100%; /* Full width for inputs */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+input::placeholder, textarea::placeholder {
+  color: #aaa; /* Placeholder text color */
 }
 
 button {
-  background-color: #00adb5;
-  color: #ffffff;
-  padding: 10px 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
   border: none;
   border-radius: 5px;
+  background-color: #0056b3; /* Button background */
+  color: white; /* Button text color */
   cursor: pointer;
-  margin-top: 10px;
-  width: calc(100% - 40px); /* Button now respects the margins */
-  margin: 10px 20px;
+  transition: background-color 0.3s;
+  width: 100%; /* Make buttons full width */
 }
 
 button:hover {
-  opacity: 0.8;
+  background-color: #0066cc; /* Lighter blue on hover */
 }
 
+.captured-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.recording-controls {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.record-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745; /* Green for record button */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%; /* Full width for record button */
+}
+
+.record-button.recording {
+  background-color: #dc3545; /* Red when recording */
+}
+
+.loading, .progress-dialog, .custom-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for dialogs */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  color: white; /* White text in dialogs */
+}
+
+/* Responsive Styles */
+
+
 @media (max-width: 600px) {
-  .container {
-    padding: 15px;
+  form {
+    padding: 10px; /* Less padding on smaller screens */
+    margin: 0 10px; /* Margin for mobile */
   }
 
-  h1 {
-    font-size: 24px;
+  label {
+    font-size: 16px; /* Adjust label size for smaller screens */
   }
 
-  input, textarea, select, button {
-    font-size: 16px;
+  input, textarea, select {
+    font-size: 14px; /* Slightly smaller text for inputs */
   }
 
-  .webcam-container video {
-    width: 100%; /* Webcam size on mobile */
+  button {
+    font-size: 14px; /* Slightly smaller button text */
+  }
+
+  .recording-controls {
+    flex-direction: column; /* Stack recording controls vertically on mobile */
+  }
+
+  .record-button {
+    width: 100%; /* Ensure buttons take full width */
   }
 }

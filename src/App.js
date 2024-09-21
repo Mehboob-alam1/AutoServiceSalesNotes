@@ -4,10 +4,12 @@ import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage
 import { ref as databaseRef, set } from 'firebase/database';
 import { storage, database } from './firebase';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import './App.css';
 
 function App() {
   const [formData, setFormData] = useState({
+    username: '',
     phoneNumber: '',
     retailName: '',
     visitSummary: '',
@@ -21,19 +23,64 @@ function App() {
   const [imageUrl, setImageUrl] = useState('');
   const [capturedImageUrl, setCapturedImageUrl] = useState('');
   const [audioUrl, setAudioUrl] = useState('');
-
-  const webcamRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
+  const [isCameraVisible, setIsCameraVisible] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [audioChunks, setAudioChunks] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
+  const webcamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
 
   useEffect(() => {
+    const storedUsername = Cookies.get('username');
+    const storedPhoneNumber = Cookies.get('phoneNumber');
+
+    setFormData({
+      username: storedUsername || '',
+      phoneNumber: storedPhoneNumber || '',
+      retailName: '',
+      visitSummary: '',
+      nextAction: '',
+      metGM: '',
+      metSD: '',
+      interestLevel: '',
+    });
+    //
+
+    const checkLocationPermission = async () => {
+      const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+  
+      if (permissionStatus.state === 'granted') {
+        // Permission already granted, fetch location
+        fetchLocation();
+      } else if (permissionStatus.state === 'denied') {
+        // Permission was denied previously
+        console.log('Location permission denied.');
+      } else {
+        // Request permission
+        if (!localStorage.getItem('locationPermissionAsked')) {
+          const confirmRequest = window.confirm('This app requires access to your location. Would you like to allow it?');
+          if (confirmRequest) {
+            fetchLocation();
+          }
+          localStorage.setItem('locationPermissionAsked', 'true'); // Mark that we've asked
+        }
+      }
+    };
+  
+    checkLocationPermission();
+
+    //
+
     fetchLocation();
   }, []);
 
   const handleChange = (e) => {
+    // Update the form data for all fields
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  
 
   const handleInterestChange = (e) => {
     setFormData({ ...formData, interestLevel: e.target.value });
@@ -44,8 +91,7 @@ function App() {
     if (imageSrc) {
       setImageUrl(imageSrc);
       setCapturedImageUrl(imageSrc);
-    } else {
-      console.error('Image capture failed!');
+      setIsCameraVisible(false);
     }
   };
 
@@ -60,9 +106,8 @@ function App() {
         mediaRecorderRef.current.start();
         setIsRecording(true);
       })
-      .catch((error) => {
-        console.error("Microphone error:", error);
-        alert("Microphone not found or permission denied.");
+      .catch(() => {
+        showAlertDialog("Please contact AutoService AI Support");
       });
   };
 
@@ -90,10 +135,8 @@ function App() {
         console.error('Audio upload failed:', error);
         return null;
       }
-    } else {
-      console.error('No audio data recorded!');
-      return null;
     }
+    return null;
   };
 
   const handleImageUpload = async () => {
@@ -129,137 +172,168 @@ function App() {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
-      }, (error) => {
-        console.error("Location error:", error);
-        alert("Unable to retrieve your location.");
+      }, () => {
+        showAlertDialog("Please contact AutoService AI Support");
       });
+    } else {
+      showAlertDialog("Please contact AutoService AI Support");
     }
   };
 
-  const sendNotification = async ({
-    user,
-    phone,
-    retailName,
-    time,
-    gps,
-    metGM,
-    metSD,
-    linkToBusCard,
-    audioFile,
-  }) => {
+  const sendNotification = async (data) => {
+    const { phone, retailName, linkToBusCard, audioFile } = data;
     const channel = 'dealervisit';
-    const message = `User:${phone} - RetailName:${retailName} - Phone Number:${phone} - Time:${time} - LinkToBusCard:${linkToBusCard} - GPS:${gps} - MetGM:${metGM} - MetSD:${metSD}`;
+    const time = new Date().toISOString();
+    const gps = `${location.latitude}, ${location.longitude}`;
+
+    const message = `User: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}`;
     const slackUrl = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/sendSlackNotification?channel=${channel}&message=${encodeURIComponent(message)}`;
 
-    console.log('Constructed Slack URL:', slackUrl);
     try {
+      setIsLoading(true);
       const slackResponse = await axios.get(slackUrl);
+
       if (slackResponse.status === 200) {
         console.log('Notification sent successfully');
-      } else {
-        console.log('Failed to send Slack notification:', slackResponse.status);
       }
 
-      const apiMessage = `User: ${user}, Retail Name: ${retailName}, Phone Number: ${phone}, Time: ${time}, GPS: ${gps}, Met GM: ${metGM}, Met SD: ${metSD}, Bus Card: ${linkToBusCard}, Audio: ${audioFile}`;
+      const apiMessage = `User: ${phone}, Retail Name: ${retailName}, Time: ${time}, GPS: ${gps}, Bus Card: ${linkToBusCard}, Audio: ${audioFile}`;
       const apiUrl = `https://common.autoservice.ai/app?phone=${phone}&message=${encodeURIComponent(apiMessage)}`;
-      console.log('Constructed API URL:', apiUrl);
 
       const apiResponse = await axios.get(apiUrl);
+
       if (apiResponse.status === 200) {
         console.log('API request sent successfully');
-      } else {
-        console.log('Failed to send API request:', apiResponse.status);
       }
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.phoneNumber || !formData.retailName || !formData.visitSummary || !formData.nextAction || !formData.interestLevel || !formData.metGM || !formData.metSD || !imageUrl) {
+    const isAllFieldsFilled = formData.username && formData.phoneNumber && formData.retailName && formData.visitSummary && formData.nextAction && formData.interestLevel && formData.metGM && formData.metSD && imageUrl;
+
+    if (!isAllFieldsFilled) {
       alert('Please fill all fields and capture an image before submitting.');
       return;
     }
 
+   // Set non-expiring cookies for username and phone number
+  Cookies.set('username', formData.username, { expires: 365 * 10 }); // Lasts for 10 years
+  Cookies.set('phoneNumber', formData.phoneNumber, { expires: 365 * 10 });
+
+    // if (!location.latitude || !location.longitude || !audioUrl) {
+    //   const confirmContinue = window.confirm('You want to continue without voice and location?');
+    //   if (!confirmContinue) return;
+    // }
+
+    setShowProgress(true);
+
     const audioDownloadUrl = await handleAudioUpload();
     const imageDownloadUrl = await handleImageUpload();
 
-    if (!audioDownloadUrl || !imageDownloadUrl) {
-      alert('Failed to upload audio or image.');
-      return;
-    }
-
     const dataRef = databaseRef(database, `formData/${formData.phoneNumber}/${Date.now()}`);
     await set(dataRef, {
-      voiceUrl: audioDownloadUrl,
+      voiceUrl: audioDownloadUrl || null,
       businessCardUrl: imageDownloadUrl,
-      gpsCoordinates: `${location.latitude}, ${location.longitude}`,
+      gpsCoordinates: `${location.latitude}, ${location.longitude}` || null,
       interestLevel: formData.interestLevel,
       ...formData,
     });
 
     await sendNotification({
-      user: formData.phoneNumber,
       phone: formData.phoneNumber,
       retailName: formData.retailName,
-      time: new Date().toISOString(),
-      gps: `${location.latitude}, ${location.longitude}`,
-      metGM: formData.metGM,
-      metSD: formData.metSD,
       linkToBusCard: imageDownloadUrl,
       audioFile: audioDownloadUrl,
     });
 
-    alert('Data successfully submitted');
+    setShowProgress(false);
+    alert('Submitted successfully!');
+    // Redirect or show success page logic can be added here
+  };
+
+  const showAlertDialog = (message) => {
+    alert(message);
   };
 
   return (
-    <div className="container">
-      <h1>Auto Service AI Notes</h1>
+    <div className="App">
+      {isLoading && <div className="loading">Loading...</div>}
+      {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
+      {showDialog && (
+        <div className="custom-dialog">
+          <p>Please contact AutoService AI Support</p>
+          <button onClick={() => setShowDialog(false)}>Close</button>
+        </div>
+      )}
+
+      <h1>AutoService AI Notes</h1>
       <form onSubmit={handleSubmit}>
+        <label>Name</label>
+        <input type="text" name="username" value={formData.username} onChange={handleChange} />
+
         <label>Phone Number</label>
-        <input type="text" name="phoneNumber" required onChange={handleChange} />
+        <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
 
-        <label>Retail Name</label>
-        <input type="text" name="retailName" required onChange={handleChange} />
-
-        <label>Met GM</label>
-        <div className="radio-group">
-          <input type="radio" name="metGM" value="yes" required onChange={handleChange} /> Yes
-          <input type="radio" name="metGM" value="no" required onChange={handleChange} /> No
-        </div>
-
-        <label>Met SD</label>
-        <div className="radio-group">
-          <input type="radio" name="metSD" value="yes" required onChange={handleChange} /> Yes
-          <input type="radio" name="metSD" value="no" required onChange={handleChange} /> No
-        </div>
-
-        <label>Interested</label>
-        <select name="interestLevel" required onChange={handleInterestChange}>
-          <option value="">Select...</option>
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
+        <label>Dealer Name</label>
+        <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} />
 
         <label>Visit Summary</label>
-        <textarea name="visitSummary" required onChange={handleChange} />
+        <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} />
 
         <label>Next Action</label>
-        <textarea name="nextAction" required onChange={handleChange} />
+        <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} />
 
-        <label>Image Capture</label>
-        <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
-        <button type="button" onClick={captureImage}>Capture Image</button>
-        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" />}
+        <label>Interest Level</label>
+        <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
+          <option value="">Select Interest Level</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
 
-        <label>Audio Recording</label>
-        <button type="button" onClick={isRecording ? stopRecording : startRecording}>
-          {isRecording ? 'Stop Recording' : 'Start Recording'}
-        </button>
+        <label>Met GM?</label>
+        <select name="metGM" value={formData.metGM} onChange={handleChange}>
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <label>Met SD?</label>
+        <select name="metSD" value={formData.metSD} onChange={handleChange}>
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        {isCameraVisible && (
+          <>
+              <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={{ facingMode: { exact: 'environment' } }} // Use back camera
+            />
+            <button type="button" onClick={captureImage}>Capture business cards</button>
+          </>
+        )}
+
+        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
+
+        <div className="recording-controls">
+          <button
+            type="button"
+            className={`record-button ${isRecording ? 'recording' : ''}`}
+            onClick={isRecording ? stopRecording : startRecording}
+          >
+            {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
+          </button>
+        </div>
 
         <button type="submit">Submit</button>
       </form>
