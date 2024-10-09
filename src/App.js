@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { ref as databaseRef, set } from 'firebase/database';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'; // Correct import for Firebase storage reference
+import { ref as databaseRef, set, get } from 'firebase/database'; 
 import { storage, database } from './firebase';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+
+// import { ref, get } from "firebase/database";
+
 import './App.css';
 
 function App() {
@@ -17,6 +20,8 @@ function App() {
     metGM: '',
     metSD: '',
     interestLevel: '',
+    liveDemoDelivered: '', // Reset new field
+
   });
 
   const [location, setLocation] = useState({ latitude: null, longitude: null });
@@ -29,6 +34,8 @@ function App() {
   const [showDialog, setShowDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
+  const [videoConstraints, setVideoConstraints] = useState({});
+
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
 
@@ -45,42 +52,43 @@ function App() {
       metGM: '',
       metSD: '',
       interestLevel: '',
+      liveDemoDelivered: '', // Reset new field
+
     });
-    //
 
     const checkLocationPermission = async () => {
       const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
   
       if (permissionStatus.state === 'granted') {
-        // Permission already granted, fetch location
         fetchLocation();
       } else if (permissionStatus.state === 'denied') {
-        // Permission was denied previously
         console.log('Location permission denied.');
       } else {
-        // Request permission
         if (!localStorage.getItem('locationPermissionAsked')) {
           const confirmRequest = window.confirm('This app requires access to your location. Would you like to allow it?');
           if (confirmRequest) {
             fetchLocation();
           }
-          localStorage.setItem('locationPermissionAsked', 'true'); // Mark that we've asked
+          localStorage.setItem('locationPermissionAsked', 'true');
         }
       }
     };
   
     checkLocationPermission();
-
-    //
-
     fetchLocation();
+
+    // Set video constraints based on device type
+    const userAgent = navigator.userAgent;
+    if (/Android/i.test(userAgent) || /iPhone|iPad|iPod/i.test(userAgent)) {
+      setVideoConstraints({ facingMode: { exact: 'environment' } }); // Back camera for mobile
+    } else {
+      setVideoConstraints({ facingMode: 'user' }); // Front camera for desktop
+    }
   }, []);
 
   const handleChange = (e) => {
-    // Update the form data for all fields
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
 
   const handleInterestChange = (e) => {
     setFormData({ ...formData, interestLevel: e.target.value });
@@ -185,8 +193,10 @@ function App() {
     const channel = 'dealervisit';
     const time = new Date().toISOString();
     const gps = `${location.latitude}, ${location.longitude}`;
+    const liveDemoMessage = formData.liveDemoDelivered ? ` - Live Demo Delivered: ${formData.liveDemoDelivered}` : '';
 
-    const message = `User: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}`;
+
+    const message = `User: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}${liveDemoMessage}`;
     const slackUrl = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/sendSlackNotification?channel=${channel}&message=${encodeURIComponent(message)}`;
 
     try {
@@ -197,9 +207,13 @@ function App() {
         console.log('Notification sent successfully');
       }
 
-      const apiMessage = `User: ${phone}, Retail Name: ${retailName}, Time: ${time}, GPS: ${gps}, Bus Card: ${linkToBusCard}, Audio: ${audioFile}`;
+      const apiMessage = `User: ${phone}, Retail Name: ${retailName}, Time: ${time}, GPS: ${gps}, Bus Card: ${linkToBusCard}, Audio: ${audioFile}${liveDemoMessage}`;
       const apiUrl = `https://common.autoservice.ai/app?phone=${phone}&message=${encodeURIComponent(apiMessage)}`;
 
+      //
+
+
+      //
       const apiResponse = await axios.get(apiUrl);
 
       if (apiResponse.status === 200) {
@@ -215,21 +229,15 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isAllFieldsFilled = formData.username && formData.phoneNumber && formData.retailName && formData.visitSummary && formData.nextAction && formData.interestLevel && formData.metGM && formData.metSD && imageUrl;
+    const isAllFieldsFilled = formData.username && formData.phoneNumber && formData.retailName && formData.visitSummary && formData.nextAction && formData.interestLevel && formData.metGM && formData.metSD && formData.liveDemoDelivered;
 
     if (!isAllFieldsFilled) {
-      alert('Please fill all fields and capture an image before submitting.');
+      alert('Please fill all fields .');
       return;
     }
 
-   // Set non-expiring cookies for username and phone number
-  Cookies.set('username', formData.username, { expires: 365 * 10 }); // Lasts for 10 years
-  Cookies.set('phoneNumber', formData.phoneNumber, { expires: 365 * 10 });
-
-    // if (!location.latitude || !location.longitude || !audioUrl) {
-    //   const confirmContinue = window.confirm('You want to continue without voice and location?');
-    //   if (!confirmContinue) return;
-    // }
+    Cookies.set('username', formData.username, { expires: 365 * 10 }); // Lasts for 10 years
+    Cookies.set('phoneNumber', formData.phoneNumber, { expires: 365 * 10 });
 
     setShowProgress(true);
 
@@ -252,14 +260,118 @@ function App() {
       audioFile: audioDownloadUrl,
     });
 
+
+    callToTrello({
+      ...formData,
+      businessCardUrl: imageDownloadUrl // Add the image download URL here
+    });
+
     setShowProgress(false);
     alert('Submitted successfully!');
-    // Redirect or show success page logic can be added here
   };
 
   const showAlertDialog = (message) => {
     alert(message);
   };
+
+  //
+
+ 
+  const callToTrello = async (data) => {
+    const { username, retailName, visitSummary, metGM, metSD, liveDemoDelivered, interestLevel, nextAction,businessCardUrl} = data;
+    const today = new Date();
+
+    
+    const MM = String(today.getMonth() + 1).padStart(2, '0');
+    const DD = String(today.getDate()).padStart(2, '0');
+
+    const board= await getBoardValue(formData.phoneNumber);
+    
+    //const board = "10-Sales"; // Default value if not found
+    
+    const formatDescription = (mm, dd, retailName, visitSummary, metGM, metSD, liveDemoDelivered, businessCardUrl) => {
+
+      const encodedBusinessCardUrl = encodeURIComponent(businessCardUrl);
+
+      return `${dd}/${mm} ${retailName} - ${visitSummary} NOTES// ${visitSummary} NEXT ACTIONS// ${nextAction} MET GM// ${metGM} MET SD// ${metSD} Business Card// ${encodedBusinessCardUrl} Live demo delivered// ${liveDemoDelivered}`;
+
+  
+      
+   };
+
+   const titleDesc=(mm,dd,retailName,visitSummary) =>{
+
+    return `${dd}/${mm} ${retailName} - ${visitSummary}`
+   };
+   
+   
+    
+    const determineListValue = (interestLevel) => {
+      switch (interestLevel) {
+        case "High":
+          return "Hot";
+        case "Medium":
+          return "Warm";
+        case "Low":
+          return "Cold";
+        default:
+          return "Cold";
+      }
+    };
+  
+    const description = formatDescription(MM, DD, retailName, visitSummary, metGM, metSD, liveDemoDelivered,businessCardUrl);
+    const listValue = determineListValue(interestLevel);
+
+  const title=titleDesc(MM,DD,retailName,visitSummary);
+    const trelloApi = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/trelloAddTask?name=${title}&desc=${encodeURIComponent(description)}&board=${board}&list=${listValue}`;
+
+    try {
+        const apiResponse = await axios.get(trelloApi);
+        if (apiResponse.status === 200) {
+            console.log("Trello task added successfully");
+        } else {
+            console.log("Failed to add task to Trello");
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        if (error.response) {
+            console.log("Error status", error.response.status);
+            console.log("Error details", error.response.data);
+        }
+    }
+};
+
+//
+
+async function getBoardValue(phoneNumber) {
+  const dbRef = databaseRef(database, `formData/${phoneNumber}/board`);
+
+  try {
+      // Get the board value
+      const snapshot = await get(dbRef);
+      if (snapshot.exists()) {
+          const boardValue = snapshot.val();
+          console.log(`Board value: ${boardValue}`);
+          return boardValue; // Return the value if it exists
+      } else {
+          console.log("Board value doesn't exist, assigning default '10-Sales'");
+          const defaultBoardValue = "10-Sales";
+          
+          // Set the default value in Firebase
+          await set(dbRef, defaultBoardValue);
+          
+          return defaultBoardValue; // Return the default value
+      }
+  } catch (error) {
+      console.error("Error reading board value: ", error);
+      return "10-Sales"; // Return default value if there's an error
+  }
+}
+
+  
+  //
+  
+  
 
   return (
     <div className="App">
@@ -283,18 +395,11 @@ function App() {
         <label>Dealer Name</label>
         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} />
 
-        <label>Visit Summary</label>
-        <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} />
-
-        <label>Next Action</label>
-        <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} />
-
-        <label>Interest Level</label>
-        <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
-          <option value="">Select Interest Level</option>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
+        <label>Live Demo Delivered?</label>
+        <select name="liveDemoDelivered" value={formData.liveDemoDelivered} onChange={handleChange}>
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
         </select>
 
         <label>Met GM?</label>
@@ -310,14 +415,29 @@ function App() {
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
+        
+        <label>Interest Level</label>
+        <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
+          <option value="">Select Interest Level</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+
+        <label>Visit Summary</label>
+        <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} />
+
+        <label>Next Action</label>
+        <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} />
+
 
         {isCameraVisible && (
           <>
-              <Webcam
+            <Webcam
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
-              videoConstraints={{ facingMode: { exact: 'environment' } }} // Use back camera
+              videoConstraints={videoConstraints} // Use dynamic constraints based on device
             />
             <button type="button" onClick={captureImage}>Capture business cards</button>
           </>
