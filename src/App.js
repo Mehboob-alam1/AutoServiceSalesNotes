@@ -1,10 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
-import { BrowserRouter as Router, Route, Switch, useNavigate, Routes } from 'react-router-dom'; // Import Router components
+import { BrowserRouter as Router, Route, useNavigate, Routes } from 'react-router-dom'; // Import Router components
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'; // Correct import for Firebase storage reference
 import { ref as databaseRef, set, get } from 'firebase/database'; 
 import { storage, database } from './firebase';
 import axios from 'axios';
+// Import the Material-UI switch component
+import Switch from './Switch'; // Import your Switch component
+
+
 import Cookies from 'js-cookie';
 
 // import { ref, get } from "firebase/database";
@@ -20,10 +24,10 @@ function App() {
     retailName: '',
     visitSummary: '',
     nextAction: '',
-    metGM: '',
-    metSD: '',
+    metGM: false,
+    metSD: false,
     interestLevel: '',
-    liveDemoDelivered: '', // Reset new field
+    liveDemoDelivered: false, // Reset new field
 
   });
 
@@ -134,6 +138,16 @@ function App() {
     }
   };
   
+  const handleSwitchChange = (name) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: !prevData[name], // Toggle the value
+    }));
+  };
+
+  const getYesNoValue = (value) => {
+    return value ? "yes" : "no";
+  };
 
   const startRecording = () => {
     navigator.mediaDevices
@@ -225,7 +239,7 @@ function App() {
     const channel = 'dealervisit';
     const time = new Date().toISOString();
     const gps = `${location.latitude}, ${location.longitude}`;
-    const liveDemoMessage = formData.liveDemoDelivered ? ` - Live Demo Delivered: ${formData.liveDemoDelivered}` : '';
+    const liveDemoMessage = formData.liveDemoDelivered ? ` - Live Demo Delivered: ${getYesNoValue(formData.liveDemoDelivered)}` : '';
 
 
     const message = `User: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}${liveDemoMessage}`;
@@ -306,23 +320,23 @@ function App() {
 
     }
     
-    if (!formData.metGM) {
-      alert('Please specify if you met GM.');
-      return;
+    // if (!formData.metGM) {
+    //   alert('Please specify if you met GM.');
+    //   return;
 
-    }
+    // }
     
-    if (!formData.metSD) {
-      alert('Please specify if you met SD.');
-      return;
+    // if (!formData.metSD) {
+    //   alert('Please specify if you met SD.');
+    //   return;
 
-    }
+    // }
     
-    if (!formData.liveDemoDelivered) {
-      alert('Please indicate if a Live Demo was delivered.');
-      return;
+    // if (!formData.liveDemoDelivered) {
+    //   alert('Please indicate if a Live Demo was delivered.');
+    //   return;
 
-    }
+    // }
     
 
 
@@ -339,12 +353,26 @@ function App() {
     const formattedDate = currentDate.toISOString().split('T')[0]
 
     const dataRef = databaseRef(database, `formData/${formData.username}/${formattedDate}/${Date.now()}`);
+
+    const submissionData = {
+      ...formData,
+      metGM: getYesNoValue(formData.metGM),
+      metSD: getYesNoValue(formData.metSD),
+      liveDemoDelivered: getYesNoValue(formData.liveDemoDelivered), // Assuming liveDemoDelivered is also a switch
+    };
+
+
     await set(dataRef, {
       voiceUrl: audioDownloadUrl || null,
       businessCardUrl: imageDownloadUrl,
       gpsCoordinates: `${location.latitude}, ${location.longitude}` || null,
       interestLevel: formData.interestLevel,
-      ...formData,
+      phoneNumber: formData.phoneNumber,
+      username: formData.username,
+      retailName:formData.retailName,
+      nextAction:formData.nextAction,
+      visitSummary:formData.visitSummary,
+      ...submissionData,
     });
 
     await sendNotification({
@@ -380,6 +408,12 @@ function App() {
 
  
   const callToTrello = async (data) => {
+
+    var gm= getYesNoValue(formData.metGM);
+    var sd= getYesNoValue(formData.metSD);
+
+    var ldd= getYesNoValue(formData.liveDemoDelivered);
+
     const { username, retailName, visitSummary, metGM, metSD, liveDemoDelivered, interestLevel, nextAction,businessCardUrl} = data;
     const today = new Date();
 
@@ -395,7 +429,7 @@ function App() {
 
       const encodedBusinessCardUrl = encodeURIComponent(businessCardUrl);
 
-      return `${dd}/${mm} ${retailName} - ${visitSummary} NOTES// ${visitSummary} NEXT ACTIONS// ${nextAction} MET GM// ${metGM} MET SD// ${metSD} Business Card// ${encodedBusinessCardUrl} Live demo delivered// ${liveDemoDelivered}`;
+      return `${dd}/${mm} ${retailName} - ${visitSummary} NOTES// ${visitSummary} NEXT ACTIONS// ${nextAction} MET GM// ${gm} MET SD// ${sd} Business Card// ${encodedBusinessCardUrl} Live demo delivered// ${ldd}`;
 
   
       
@@ -415,6 +449,8 @@ function App() {
         case "Medium":
           return "Warm";
         case "Low":
+          return "Cold";
+        case "Do Not Know":
           return "Cold";
         default:
           return "Cold";
@@ -529,34 +565,33 @@ async function getBoardValue(phoneNumber) {
         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} />
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+<div style={{ display: 'flex', alignItems: 'center',justifyContent:'center', gap: '15px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+    <label style={{ fontSize: '15px' }}>Live Demo Delivered</label>
+    <Switch 
+      checked={formData.liveDemoDelivered} 
+     
+      onChange={() => handleSwitchChange('liveDemoDelivered')}
+    />
+  </div>
+  
+  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+    <label style={{ fontSize: '15px' }}>Met GM</label>
+    <Switch 
+      checked={formData.metGM} 
+      onChange={() => handleSwitchChange('metGM')}  
+         />
+  </div>
 
-        <label style={{ fontSize: '15px' }}>Live Demo Delivered?</label>
-        <select name="liveDemoDelivered" value={formData.liveDemoDelivered} onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+    <label style={{ fontSize: '15px' }}>Met SD</label>
+    <Switch 
+      checked={formData.metSD} 
+      onChange={() => handleSwitchChange('metSD')} 
+    />
+  </div>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-        <label style={{ fontSize: '15px' }}>Met GM?</label>
-        <select name="metGM" value={formData.metGM} onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-        <label style={{ fontSize: '15px' }}>Met SD?</label>
-        <select name="metSD" value={formData.metSD} onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-        </div>
+          
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
 
@@ -566,6 +601,7 @@ async function getBoardValue(phoneNumber) {
           <option value="High">High</option>
           <option value="Medium">Medium</option>
           <option value="Low">Low</option>
+          <option value="Do Not Know">Do Not Know</option>
         </select>
 
         </div>
@@ -657,7 +693,8 @@ const SuccessPage = () => (
   <div className="success-container">
     <h2>Success!</h2>
     <p>Your data has been submitted successfully.</p>
-    <a href="/">Go Back</a>
+    <a href="/" style={{color: 'blue'}}>Go Back</a>
+
   </div>
 );
 const Main = () => (
