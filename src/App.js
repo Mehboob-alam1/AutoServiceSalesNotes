@@ -46,24 +46,24 @@ function App() {
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
 
+  const [isUsernamePhoneHidden, setIsUsernamePhoneHidden] = useState(false); // State to manage hiding fields
+
+
   useEffect(() => {
     const storedUsername = Cookies.get('username');
     const storedPhoneNumber = Cookies.get('phoneNumber');
 
-    setFormData({
+    
 
-      
-      username: storedUsername || '',
-      phoneNumber: storedPhoneNumber || '',
-      retailName: '',
-      visitSummary: '',
-      nextAction: '',
-      metGM: '',
-      metSD: '',
-      interestLevel: '',
-      liveDemoDelivered: '', // Reset new field
 
-    });
+    if (storedUsername && storedPhoneNumber) {
+      setIsUsernamePhoneHidden(true); // Hide fields if both values exist
+      setFormData((prevData) => ({
+        ...prevData,
+        username: storedUsername,
+        phoneNumber: storedPhoneNumber,
+      }));
+    }
 
     setShowDialog(false); // Hide the dialog
     // handlePermissionRequest();
@@ -328,8 +328,7 @@ function App() {
 
 
     ///
-    Cookies.set('username', formData.username, { expires: 365 * 10 }); // Lasts for 10 years
-    Cookies.set('phoneNumber', formData.phoneNumber, { expires: 365 * 10 });
+ 
 
     setShowProgress(true);
 
@@ -363,6 +362,12 @@ function App() {
 
     setShowProgress(false);
    
+    Cookies.set('username', formData.username, { expires: 365 * 10 }); // Lasts for 10 years
+    Cookies.set('phoneNumber', formData.phoneNumber, { expires: 365 * 10 });
+
+    setIsUsernamePhoneHidden(true); // Hide the fields after successful submission
+
+
     // Navigate to success page
     navigate('/success');
   };
@@ -496,8 +501,9 @@ async function getBoardValue(phoneNumber) {
 
       <form onSubmit={handleSubmit}>
 
-       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+     { !isUsernamePhoneHidden && (
+<>
+<div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
       <label style={{ fontSize: '15px' }}>Your Name</label>
 
 
@@ -510,6 +516,9 @@ async function getBoardValue(phoneNumber) {
         <label  style={{ fontSize: '15px' }}>Your Phone</label>
         <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
 </div>
+</>
+     )}  
+
 
 
 
