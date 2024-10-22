@@ -11,7 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px; /* Reduced padding */
+  /* Reduced padding */
 }
 
 form {
@@ -22,18 +22,18 @@ form {
   background-color: #003366; /* Slightly lighter dark blue for the form */
   padding: 20px;
   border-radius: 10px;
-  margin: auto; /* Center the form */
+  /* Center the form */
 }
 
 label {
-  margin: 10px 0 5px;
-  font-size: 18px; /* Increased label size for readability */
+  margin: 5px 0 5px;
+  font-size: 12px; /* Increased label size for readability */
 }
 
 input, textarea, select {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   padding: 10px;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #004080; /* Darker blue for inputs */
@@ -47,9 +47,10 @@ input::placeholder, textarea::placeholder {
 }
 
 button {
-  margin-bottom: 10px;
+  margin-top: 5px;
+ 
   padding: 10px;
-  font-size: 16px;
+  font-size: 12px;
   border: none;
   border-radius: 5px;
   background-color: #0056b3; /* Button background */
@@ -102,6 +103,14 @@ button:hover {
   z-index: 999;
   color: white; /* White text in dialogs */
 }
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  text-align: center; /* Center text */
+}
 
 /* Responsive Styles */
 
@@ -131,4 +140,28 @@ button:hover {
   .record-button {
     width: 100%; /* Ensure buttons take full width */
   }
+
+  .dialog-overlay {
+    position: fixed;
+    top: 500px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .dialog button {
+    margin-top: 10px;
+  }
+  
 }

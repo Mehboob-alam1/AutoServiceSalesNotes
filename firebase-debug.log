@@ -1,0 +1,722 @@
+[debug] [2024-10-17T11:11:45.378Z] ----------------------------------------------------------------------
+[debug] [2024-10-17T11:11:45.393Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\glt\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2024-10-17T11:11:45.395Z] CLI Version:   13.22.0
+[debug] [2024-10-17T11:11:45.396Z] Platform:      win32
+[debug] [2024-10-17T11:11:45.396Z] Node Version:  v20.12.2
+[debug] [2024-10-17T11:11:45.397Z] Time:          Thu Oct 17 2024 16:11:45 GMT+0500 (Pakistan Standard Time)
+[debug] [2024-10-17T11:11:45.398Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-17T11:11:45.631Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-17T11:11:45.631Z] > authorizing via signed-in user (ma8122576@gmail.com)
+[debug] [2024-10-17T11:11:45.632Z] [iam] checking project autoservicesreact for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2024-10-17T11:11:45.634Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:45.634Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:45.636Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions [none]
+[debug] [2024-10-17T11:11:45.637Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:11:45.637Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-10-17T11:11:47.750Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions 200
+[debug] [2024-10-17T11:11:47.751Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-10-17T11:11:47.752Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:47.753Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:47.753Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/autoservicesreact/serviceAccounts/autoservicesreact@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-10-17T11:11:47.754Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/autoservicesreact/serviceAccounts/autoservicesreact@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-10-17T11:11:49.602Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/autoservicesreact/serviceAccounts/autoservicesreact@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-10-17T11:11:49.603Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/autoservicesreact/serviceAccounts/autoservicesreact@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'autoservicesreact'...
+[info] 
+[info] i  deploying functions 
+[debug] [2024-10-17T11:11:49.616Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:49.617Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:49.618Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact [none]
+[debug] [2024-10-17T11:11:50.434Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact 200
+[debug] [2024-10-17T11:11:50.434Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact {"projectId":"autoservicesreact","projectNumber":"385076818849","displayName":"AutoServicesReact","name":"projects/autoservicesreact","resources":{"hostingSite":"autoservicesreact","realtimeDatabaseInstance":"autoservicesreact-default-rtdb","storageBucket":"autoservicesreact.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_f5cbc68f-0903-4b30-bd6a-861099e4ac5e"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[debug] [2024-10-17T11:11:50.441Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:50.442Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:50.442Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:50.443Z] Checked if tokens are valid: true, expires at: 1729166266699
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2024-10-17T11:11:50.445Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:50.446Z] Checked if tokens are valid: true, expires at: 1729166266699
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-10-17T11:11:50.449Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:50.449Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:50.450Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-10-17T11:11:50.450Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:11:50.458Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-10-17T11:11:50.458Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:11:50.463Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudbuild.googleapis.com [none]
+[debug] [2024-10-17T11:11:50.463Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudbuild.googleapis.com x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:11:50.474Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/artifactregistry.googleapis.com [none]
+[debug] [2024-10-17T11:11:50.474Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/artifactregistry.googleapis.com x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:11:52.403Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudfunctions.googleapis.com 200
+[debug] [2024-10-17T11:11:52.404Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-10-17T11:11:52.407Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/artifactregistry.googleapis.com 200
+[debug] [2024-10-17T11:11:52.407Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-10-17T11:11:52.414Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudbuild.googleapis.com 200
+[debug] [2024-10-17T11:11:52.414Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-10-17T11:11:52.417Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/runtimeconfig.googleapis.com 200
+[debug] [2024-10-17T11:11:52.417Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-10-17T11:11:52.418Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:52.418Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:52.418Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig [none]
+[debug] [2024-10-17T11:11:53.156Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig 200
+[debug] [2024-10-17T11:11:53.157Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig {"projectId":"autoservicesreact","databaseURL":"https://autoservicesreact-default-rtdb.firebaseio.com","storageBucket":"autoservicesreact.appspot.com","locationId":"us-central"}
+[debug] [2024-10-17T11:11:53.158Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:53.158Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:11:53.159Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/autoservicesreact/configs [none]
+[debug] [2024-10-17T11:11:53.859Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/autoservicesreact/configs 200
+[debug] [2024-10-17T11:11:53.859Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/autoservicesreact/configs {}
+[debug] [2024-10-17T11:11:53.865Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2024-10-17T11:11:57.052Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-17T11:11:57.054Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-10-17T11:11:57.062Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-17T11:11:57.117Z] Found firebase-functions binary at 'C:\Users\glt\notes\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8933
+
+[debug] [2024-10-17T11:11:58.997Z] Got response from /__/functions.yaml {"endpoints":{"helloWorld":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"helloWorld"},"sendDailyReport":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 16 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":"America/New_York"},"labels":{},"entryPoint":"sendDailyReport"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2024-10-17T11:12:04.102Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:04.102Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:04.103Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/firebaseextensions.googleapis.com [none]
+[debug] [2024-10-17T11:12:04.103Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/firebaseextensions.googleapis.com x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:12:05.896Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/firebaseextensions.googleapis.com 200
+[debug] [2024-10-17T11:12:05.897Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/firebaseextensions.googleapis.com [omitted]
+[info] +  extensions: required API firebaseextensions.googleapis.com is enabled 
+[debug] [2024-10-17T11:12:05.899Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-17T11:12:05.900Z] > authorizing via signed-in user (ma8122576@gmail.com)
+[debug] [2024-10-17T11:12:05.900Z] [iam] checking project autoservicesreact for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2024-10-17T11:12:05.901Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:05.901Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:05.901Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions [none]
+[debug] [2024-10-17T11:12:05.901Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:12:05.902Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2024-10-17T11:12:07.462Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions 200
+[debug] [2024-10-17T11:12:07.463Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2024-10-17T11:12:07.465Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:07.465Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:07.468Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/autoservicesreact/instances pageSize=100&pageToken=
+[debug] [2024-10-17T11:12:09.219Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/autoservicesreact/instances 200
+[debug] [2024-10-17T11:12:09.219Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/autoservicesreact/instances {}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\glt\notes\functions (62.42 KB) for uploading 
+[debug] [2024-10-17T11:12:09.276Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:09.276Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:09.276Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/-/functions [none]
+[debug] [2024-10-17T11:12:10.302Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/-/functions 200
+[debug] [2024-10-17T11:12:10.302Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/-/functions {"functions":[{"name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"autoservicesreact@appspot.gserviceaccount.com","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"18c0a6e33d395fec95adc6921bffb3b7c92b4874"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/aa67185a-bfa1-4024-a1c7-3d4fda76dd83.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","ingressSettings":"ALLOW_ALL","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"}]}
+[debug] [2024-10-17T11:12:10.303Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:10.303Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:10.303Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/autoservicesreact/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2024-10-17T11:12:11.383Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/autoservicesreact/locations/-/functions 200
+[debug] [2024-10-17T11:12:11.383Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/autoservicesreact/locations/-/functions {}
+[info] i  functions: ensuring required API cloudscheduler.googleapis.com is enabled... 
+[debug] [2024-10-17T11:12:11.390Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:11.390Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:11.390Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudscheduler.googleapis.com [none]
+[debug] [2024-10-17T11:12:11.390Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudscheduler.googleapis.com x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T11:12:13.052Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudscheduler.googleapis.com 200
+[debug] [2024-10-17T11:12:13.052Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/autoservicesreact/services/cloudscheduler.googleapis.com [omitted]
+[info] +  functions: required API cloudscheduler.googleapis.com is enabled 
+[debug] [2024-10-17T11:12:13.056Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:13.057Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:13.057Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact [none]
+[debug] [2024-10-17T11:12:13.570Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact 200
+[debug] [2024-10-17T11:12:13.571Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact {"projectId":"autoservicesreact","projectNumber":"385076818849","displayName":"AutoServicesReact","name":"projects/autoservicesreact","resources":{"hostingSite":"autoservicesreact","realtimeDatabaseInstance":"autoservicesreact-default-rtdb","storageBucket":"autoservicesreact.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_f5cbc68f-0903-4b30-bd6a-861099e4ac5e"}
+[debug] [2024-10-17T11:12:13.572Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:13.572Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:13.573Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/autoservicesreact/billingInfo [none]
+[debug] [2024-10-17T11:12:14.363Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/autoservicesreact/billingInfo 200
+[debug] [2024-10-17T11:12:14.363Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/autoservicesreact/billingInfo {"name":"projects/autoservicesreact/billingInfo","projectId":"autoservicesreact","billingAccountName":"billingAccounts/0152D7-B75A6D-754849","billingEnabled":true}
+[debug] [2024-10-17T11:12:14.365Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:14.366Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:14.366Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2024-10-17T11:12:14.366Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions:generateUploadUrl {}
+[debug] [2024-10-17T11:12:15.118Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2024-10-17T11:12:15.118Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D"}
+[debug] [2024-10-17T11:12:15.119Z] >>> [apiv2][query] PUT https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip GoogleAccessId=service-385076818849%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D
+[debug] [2024-10-17T11:12:15.120Z] >>> [apiv2][body] PUT https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip [stream]
+[debug] [2024-10-17T11:12:16.358Z] <<< [apiv2][status] PUT https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip 200
+[debug] [2024-10-17T11:12:16.358Z] <<< [apiv2][body] PUT https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip [omitted]
+[info] +  functions: functions folder uploaded successfully 
+[info] i  functions: creating Node.js 18 (1st Gen) function sendDailyReport(us-central1)... 
+[info] i  functions: updating Node.js 18 (1st Gen) function helloWorld(us-central1)... 
+[debug] [2024-10-17T11:12:16.368Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:16.369Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:16.369Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions [none]
+[debug] [2024-10-17T11:12:16.369Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions {"name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","entryPoint":"sendDailyReport","runtime":"nodejs18","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"minInstances":null,"maxInstances":null,"ingressSettings":null,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"serviceAccountEmail":null,"availableMemoryMb":null,"timeout":null,"vpcConnector":null,"vpcConnectorEgressSettings":null,"buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
+[debug] [2024-10-17T11:12:17.050Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions 200
+[debug] [2024-10-17T11:12:17.050Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z"}}
+[debug] [2024-10-17T11:12:17.051Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:17.051Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:17.052Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:17.381Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:17.381Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z"}}
+[debug] [2024-10-17T11:12:17.893Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:12:17.893Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:17.894Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:17.894Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:18.204Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:18.205Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:19.207Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:12:19.207Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:19.207Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:19.207Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:19.517Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:19.517Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:21.532Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:12:21.533Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:21.533Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:21.534Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:21.861Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:21.861Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:25.862Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:12:25.863Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:25.863Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:25.863Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:26.191Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:26.191Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:34.201Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:12:34.201Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:34.201Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:34.201Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:34.729Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:34.730Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:44.748Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:12:44.749Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:44.749Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:44.750Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:45.275Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:45.275Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:55.278Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:12:55.279Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:55.279Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:55.280Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:12:55.804Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:12:55.804Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:55.805Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[debug] [2024-10-17T11:12:55.807Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:55.807Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:55.809Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions/helloWorld updateMask=name%2CsourceUploadUrl%2CentryPoint%2Cruntime%2CdockerRegistry%2Clabels%2ChttpsTrigger.securityLevel%2CminInstances%2CmaxInstances%2CingressSettings%2CenvironmentVariables%2CserviceAccountEmail%2CavailableMemoryMb%2Ctimeout%2CvpcConnector%2CvpcConnectorEgressSettings%2CsourceToken%2CbuildEnvironmentVariables
+[debug] [2024-10-17T11:12:55.809Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions/helloWorld {"name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","entryPoint":"helloWorld","runtime":"nodejs18","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"httpsTrigger":{"securityLevel":"SECURE_ALWAYS"},"minInstances":null,"maxInstances":null,"ingressSettings":null,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"serviceAccountEmail":null,"availableMemoryMb":null,"timeout":null,"vpcConnector":null,"vpcConnectorEgressSettings":null,"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
+[debug] [2024-10-17T11:12:56.350Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions/helloWorld 200
+[debug] [2024-10-17T11:12:56.351Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/autoservicesreact/locations/us-central1/functions/helloWorld {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2024-10-17T11:12:56Z","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824"}}
+[debug] [2024-10-17T11:12:56.351Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:56.351Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:56.352Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA [none]
+[debug] [2024-10-17T11:12:56.667Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA 200
+[debug] [2024-10-17T11:12:56.668Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2024-10-17T11:12:56Z","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824"}}
+[debug] [2024-10-17T11:12:56.668Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[debug] [2024-10-17T11:12:57.181Z] [update-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-10-17T11:12:57.182Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:57.182Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:57.182Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA [none]
+[debug] [2024-10-17T11:12:57.494Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA 200
+[debug] [2024-10-17T11:12:57.494Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2024-10-17T11:12:56Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:57.495Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[debug] [2024-10-17T11:12:58.497Z] [update-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-10-17T11:12:58.498Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:58.498Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:12:58.498Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA [none]
+[debug] [2024-10-17T11:12:58.813Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA 200
+[debug] [2024-10-17T11:12:58.813Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2024-10-17T11:12:56Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:12:58.814Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[debug] [2024-10-17T11:13:00.815Z] [update-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-10-17T11:13:00.816Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:00.816Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:00.817Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA [none]
+[debug] [2024-10-17T11:13:01.120Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA 200
+[debug] [2024-10-17T11:13:01.120Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2024-10-17T11:12:56Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:13:01.120Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[debug] [2024-10-17T11:13:05.133Z] [update-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-10-17T11:13:05.134Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:05.135Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:05.135Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA [none]
+[debug] [2024-10-17T11:13:05.445Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA 200
+[debug] [2024-10-17T11:13:05.445Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2024-10-17T11:12:56Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:13:05.445Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[debug] [2024-10-17T11:13:05.819Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:13:05.820Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:05.820Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:05.820Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:13:06.136Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:13:06.136Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:12:17Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"}}
+[debug] [2024-10-17T11:13:06.137Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[debug] [2024-10-17T11:13:13.457Z] [update-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-10-17T11:13:13.458Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:13.459Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:13.459Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA [none]
+[debug] [2024-10-17T11:13:13.974Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA 200
+[debug] [2024-10-17T11:13:13.975Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvaGVsbG9Xb3JsZC91WnhOaDVWeUo4MA","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/helloWorld","httpsTrigger":{"url":"https://us-central1-autoservicesreact.cloudfunctions.net/helloWorld","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"helloWorld","updateTime":"2024-10-17T11:06:29.618Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/helloWorld"},"runtime":"nodejs18","buildId":"a74db3ef-6016-431f-9fcf-7aac015893b5","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/a74db3ef-6016-431f-9fcf-7aac015893b5","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/autoservicesreact/serviceAccounts/385076818849-compute@developer.gserviceaccount.com"},"versionId":"2","updateTime":"2024-10-17T11:13:12Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"},"done":true,"error":{"code":3,"message":"Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nDid you list all required modules in the package.json dependencies?\nDetailed stack trace: Error: Cannot find module 'axios'\nRequire stack:\n- /workspace/index.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)\n    at Module._load (node:internal/modules/cjs/loader:981:27)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\n    at require (node:internal/modules/helpers:177:18)\n    at Object.<anonymous> (/workspace/index.js:13:15)\n    at Module._compile (node:internal/modules/cjs/loader:1364:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)\n    at Module.load (node:internal/modules/cjs/loader:1203:32)\n    at Module._load (node:internal/modules/cjs/loader:1019:12)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation."}}
+[debug] [2024-10-17T11:13:13.975Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[error] Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.
+Did you list all required modules in the package.json dependencies?
+Detailed stack trace: Error: Cannot find module 'axios'
+Require stack:
+- /workspace/index.js
+- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js
+- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)
+    at Module._load (node:internal/modules/cjs/loader:981:27)
+    at Module.require (node:internal/modules/cjs/loader:1231:19)
+    at require (node:internal/modules/helpers:177:18)
+    at Object.<anonymous> (/workspace/index.js:13:15)
+    at Module._compile (node:internal/modules/cjs/loader:1364:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+    at Module.load (node:internal/modules/cjs/loader:1203:32)
+    at Module._load (node:internal/modules/cjs/loader:1019:12)
+    at Module.require (node:internal/modules/cjs/loader:1231:19)
+Could not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.
+[debug] [2024-10-17T11:13:16.140Z] [create-default-us-central1-sendDailyReport] Retrying task index 0
+[debug] [2024-10-17T11:13:16.141Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.141Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.141Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF [none]
+[debug] [2024-10-17T11:13:16.452Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF 200
+[debug] [2024-10-17T11:13:16.452Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF {"name":"operations/YXV0b3NlcnZpY2VzcmVhY3QvdXMtY2VudHJhbDEvc2VuZERhaWx5UmVwb3J0L1J4VnRJNTBIazVF","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/autoservicesreact/topics/firebase-schedule-sendDailyReport-us-central1"},"entryPoint":"sendDailyReport","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"aaaf58751f8798c03ca7592f5c803270117a6ca6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-965588950111.us-central1.cloudfunctions.appspot.com/104a9dfd-102f-468a-a6c6-98362e48ebc6.zip?GoogleAccessId=service-385076818849@gcf-admin-robot.iam.gserviceaccount.com&Expires=1729165335&Signature=Bjwvv9KTdVQHpZ2AppmPrd%2F69Jvz4Xt7d9BOED6XxnHKOc9BXiDeApjPC6pGejxADrlNr0DIbLTLpuuA0mu9nwTLIT6rLZjjqZTv15m6qvmur4cDZZDu1rsG6GS2%2FZp%2FBm4ZtzX1RKSJuFLbfwuL0HAhYXQo0N1FvLdiCvCyt%2B6mx62rVwWJ%2FyG%2FZ6iNBy0logQj7Yaej9FwWMlL76ECou8J6d5gW6npEuAjo4oOT4qtLpsh1yHntMTHOaRTyptPmbzxeOOz9Fx5wzS1FK1%2BLQW7cDvkwl%2F3IknB8LhC2%2FKgPb9VAf3iluHv5Zil8X4VVpEW0b%2Bx0%2FZ9y%2Fn5xRufUw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"autoservicesreact","EVENTARC_CLOUD_EVENT_SOURCE":"projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-10-17T11:13:06Z","buildId":"9ac45327-3d1d-45fa-b1df-ac7d80a94199","sourceToken":"f1b7ad74-2669-4b7d-89f3-19732ffe5824","buildName":"projects/385076818849/locations/us-central1/builds/9ac45327-3d1d-45fa-b1df-ac7d80a94199"},"done":true,"error":{"code":3,"message":"Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nDid you list all required modules in the package.json dependencies?\nDetailed stack trace: Error: Cannot find module 'axios'\nRequire stack:\n- /workspace/index.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)\n    at Module._load (node:internal/modules/cjs/loader:981:27)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\n    at require (node:internal/modules/helpers:177:18)\n    at Object.<anonymous> (/workspace/index.js:13:15)\n    at Module._compile (node:internal/modules/cjs/loader:1364:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)\n    at Module.load (node:internal/modules/cjs/loader:1203:32)\n    at Module._load (node:internal/modules/cjs/loader:1019:12)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation."}}
+[debug] [2024-10-17T11:13:16.452Z] Got source token f1b7ad74-2669-4b7d-89f3-19732ffe5824 for region us-central1
+[error] Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.
+Did you list all required modules in the package.json dependencies?
+Detailed stack trace: Error: Cannot find module 'axios'
+Require stack:
+- /workspace/index.js
+- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js
+- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)
+    at Module._load (node:internal/modules/cjs/loader:981:27)
+    at Module.require (node:internal/modules/cjs/loader:1231:19)
+    at require (node:internal/modules/helpers:177:18)
+    at Object.<anonymous> (/workspace/index.js:13:15)
+    at Module._compile (node:internal/modules/cjs/loader:1364:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+    at Module.load (node:internal/modules/cjs/loader:1203:32)
+    at Module._load (node:internal/modules/cjs/loader:1019:12)
+    at Module.require (node:internal/modules/cjs/loader:1231:19)
+Could not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.
+[debug] [2024-10-17T11:13:16.468Z] Total Function Deployment time: 60089
+[debug] [2024-10-17T11:13:16.468Z] 2 Functions Deployed
+[debug] [2024-10-17T11:13:16.469Z] 2 Functions Errored
+[debug] [2024-10-17T11:13:16.469Z] 0 Function Deployments Aborted
+[debug] [2024-10-17T11:13:16.469Z] Average Function Deployment time: 58847.5
+[info] 
+[info] Functions deploy had errors with the following functions:
+	helloWorld(us-central1)
+	sendDailyReport(us-central1)
+[debug] [2024-10-17T11:13:16.928Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[info] i  functions: cleaning up build files... 
+[debug] [2024-10-17T11:13:16.931Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.931Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.931Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.931Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.933Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.933Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:16.933Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/repositories/gcf-artifacts/packages/hello_world [none]
+[debug] [2024-10-17T11:13:16.935Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/repositories/gcf-artifacts/packages/send_daily_report [none]
+[debug] [2024-10-17T11:13:16.937Z] >>> [apiv2][query] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list [none]
+[debug] [2024-10-17T11:13:17.957Z] <<< [apiv2][status] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list 404
+[debug] [2024-10-17T11:13:17.958Z] <<< [apiv2][body] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-10-17T11:13:17.958Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-10-17T11:13:17.964Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:17.964Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:17.964Z] >>> [apiv2][query] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list [none]
+[debug] [2024-10-17T11:13:18.140Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/repositories/gcf-artifacts/packages/hello_world 404
+[debug] [2024-10-17T11:13:18.140Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/repositories/gcf-artifacts/packages/hello_world {"error":{"code":404,"message":"Package \"projects/autoservicesreact/locations/us-central1/repositories/gcf-artifacts/packages/hello_world\" was not found.","status":"NOT_FOUND"}}
+[debug] [2024-10-17T11:13:18.143Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/repositories/gcf-artifacts/packages/send_daily_report 200
+[debug] [2024-10-17T11:13:18.143Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/repositories/gcf-artifacts/packages/send_daily_report {"name":"projects/autoservicesreact/locations/us-central1/operations/fbb441d1-ef99-4a71-a4e4-8db52c71b625","metadata":{"@type":"type.googleapis.com/google.devtools.artifactregistry.v1beta2.OperationMetadata"}}
+[debug] [2024-10-17T11:13:18.144Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:18.144Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:18.144Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/operations/fbb441d1-ef99-4a71-a4e4-8db52c71b625 [none]
+[debug] [2024-10-17T11:13:18.306Z] <<< [apiv2][status] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list 404
+[debug] [2024-10-17T11:13:18.306Z] <<< [apiv2][body] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-10-17T11:13:18.306Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-10-17T11:13:18.419Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:18.420Z] Checked if tokens are valid: true, expires at: 1729166266699
+[debug] [2024-10-17T11:13:18.420Z] >>> [apiv2][query] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list [none]
+[debug] [2024-10-17T11:13:18.774Z] <<< [apiv2][status] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list 404
+[debug] [2024-10-17T11:13:18.774Z] <<< [apiv2][body] GET https://us.gcr.io/v2/autoservicesreact/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-10-17T11:13:18.774Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-10-17T11:13:18.958Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/operations/fbb441d1-ef99-4a71-a4e4-8db52c71b625 200
+[debug] [2024-10-17T11:13:18.959Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1beta2/projects/autoservicesreact/locations/us-central1/operations/fbb441d1-ef99-4a71-a4e4-8db52c71b625 {"name":"projects/autoservicesreact/locations/us-central1/operations/fbb441d1-ef99-4a71-a4e4-8db52c71b625","metadata":{"@type":"type.googleapis.com/google.devtools.artifactregistry.v1beta2.OperationMetadata"},"done":true,"response":{"@type":"type.googleapis.com/google.protobuf.Empty"}}
+[warn] !  functions: Unhandled error cleaning up build images. This could result in a small monthly bill if not corrected. You can attempt to delete these images by redeploying or you can delete them manually at https://console.cloud.google.com/gcr/images/autoservicesreact/us/gcf 
+[debug] [2024-10-17T11:13:18.962Z] Functions deploy failed.
+[debug] [2024-10-17T11:13:18.962Z] {
+  "endpoint": {
+    "id": "helloWorld",
+    "project": "autoservicesreact",
+    "region": "us-central1",
+    "entryPoint": "helloWorld",
+    "platform": "gcfv1",
+    "runtime": "nodejs18",
+    "httpsTrigger": {},
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "serviceAccount": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}",
+      "GCLOUD_PROJECT": "autoservicesreact",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/autoservicesreact/locations/us-central1/functions/helloWorld"
+    },
+    "codebase": "default",
+    "securityLevel": "SECURE_ALWAYS",
+    "targetedByOnly": false,
+    "hash": "aaaf58751f8798c03ca7592f5c803270117a6ca6",
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    }
+  },
+  "op": "update",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nDid you list all required modules in the package.json dependencies?\nDetailed stack trace: Error: Cannot find module 'axios'\nRequire stack:\n- /workspace/index.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)\n    at Module._load (node:internal/modules/cjs/loader:981:27)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\n    at require (node:internal/modules/helpers:177:18)\n    at Object.<anonymous> (/workspace/index.js:13:15)\n    at Module._compile (node:internal/modules/cjs/loader:1364:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)\n    at Module.load (node:internal/modules/cjs/loader:1203:32)\n    at Module._load (node:internal/modules/cjs/loader:1019:12)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.",
+    "original": {
+      "code": 3,
+      "message": "Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nDid you list all required modules in the package.json dependencies?\nDetailed stack trace: Error: Cannot find module 'axios'\nRequire stack:\n- /workspace/index.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)\n    at Module._load (node:internal/modules/cjs/loader:981:27)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\n    at require (node:internal/modules/helpers:177:18)\n    at Object.<anonymous> (/workspace/index.js:13:15)\n    at Module._compile (node:internal/modules/cjs/loader:1364:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)\n    at Module.load (node:internal/modules/cjs/loader:1203:32)\n    at Module._load (node:internal/modules/cjs/loader:1019:12)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation."
+    },
+    "status": 3,
+    "code": 3
+  }
+}
+[debug] [2024-10-17T11:13:18.963Z] {
+  "endpoint": {
+    "id": "sendDailyReport",
+    "project": "autoservicesreact",
+    "region": "us-central1",
+    "entryPoint": "sendDailyReport",
+    "platform": "gcfv1",
+    "runtime": "nodejs18",
+    "scheduleTrigger": {
+      "schedule": "0 16 * * *",
+      "timeZone": "America/New_York",
+      "retryConfig": {
+        "maxBackoffSeconds": null,
+        "minBackoffSeconds": null,
+        "maxRetrySeconds": null,
+        "retryCount": null,
+        "maxDoublings": null
+      }
+    },
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "serviceAccount": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"autoservicesreact\",\"databaseURL\":\"https://autoservicesreact-default-rtdb.firebaseio.com\",\"storageBucket\":\"autoservicesreact.appspot.com\",\"locationId\":\"us-central\"}",
+      "GCLOUD_PROJECT": "autoservicesreact",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"
+    },
+    "codebase": "default",
+    "targetedByOnly": false,
+    "hash": "aaaf58751f8798c03ca7592f5c803270117a6ca6"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nDid you list all required modules in the package.json dependencies?\nDetailed stack trace: Error: Cannot find module 'axios'\nRequire stack:\n- /workspace/index.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)\n    at Module._load (node:internal/modules/cjs/loader:981:27)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\n    at require (node:internal/modules/helpers:177:18)\n    at Object.<anonymous> (/workspace/index.js:13:15)\n    at Module._compile (node:internal/modules/cjs/loader:1364:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)\n    at Module.load (node:internal/modules/cjs/loader:1203:32)\n    at Module._load (node:internal/modules/cjs/loader:1019:12)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.",
+    "original": {
+      "code": 3,
+      "message": "Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nDid you list all required modules in the package.json dependencies?\nDetailed stack trace: Error: Cannot find module 'axios'\nRequire stack:\n- /workspace/index.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/loader.js\n- /layers/google.nodejs.functions-framework/functions-framework/node_modules/@google-cloud/functions-framework/build/src/main.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1140:15)\n    at Module._load (node:internal/modules/cjs/loader:981:27)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\n    at require (node:internal/modules/helpers:177:18)\n    at Object.<anonymous> (/workspace/index.js:13:15)\n    at Module._compile (node:internal/modules/cjs/loader:1364:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)\n    at Module.load (node:internal/modules/cjs/loader:1203:32)\n    at Module._load (node:internal/modules/cjs/loader:1019:12)\n    at Module.require (node:internal/modules/cjs/loader:1231:19)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation."
+    },
+    "status": 3,
+    "code": 3
+  }
+}
+[error] Error: There was an error deploying functions:
+[error] - Error Failed to update function helloWorld in region us-central1
+[error] - Error Failed to create function sendDailyReport in region us-central1
+[debug] [2024-10-17T16:34:49.005Z] ----------------------------------------------------------------------
+[debug] [2024-10-17T16:34:49.025Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\glt\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2024-10-17T16:34:49.026Z] CLI Version:   13.22.0
+[debug] [2024-10-17T16:34:49.026Z] Platform:      win32
+[debug] [2024-10-17T16:34:49.027Z] Node Version:  v20.12.2
+[debug] [2024-10-17T16:34:49.028Z] Time:          Thu Oct 17 2024 21:34:49 GMT+0500 (Pakistan Standard Time)
+[debug] [2024-10-17T16:34:49.028Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-17T16:34:49.036Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-10-17T16:34:49.385Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-17T16:34:49.385Z] > authorizing via signed-in user (ma8122576@gmail.com)
+[debug] [2024-10-17T16:34:49.386Z] [iam] checking project autoservicesreact for permissions ["firebase.projects.get"]
+[debug] [2024-10-17T16:34:49.388Z] Checked if tokens are valid: false, expires at: 1729166266699
+[debug] [2024-10-17T16:34:49.389Z] Checked if tokens are valid: false, expires at: 1729166266699
+[debug] [2024-10-17T16:34:49.389Z] > refreshing access token with scopes: []
+[debug] [2024-10-17T16:34:49.392Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-17T16:34:49.392Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-17T16:34:50.096Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-10-17T16:34:50.098Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-10-17T16:34:50.134Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-10-17T16:34:50.135Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-17T16:34:50.167Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions [none]
+[debug] [2024-10-17T16:34:50.167Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T16:34:50.167Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-17T16:34:51.944Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions 200
+[debug] [2024-10-17T16:34:51.944Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-17T16:34:51.972Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-17T16:34:51.985Z] defaultcredentials: writing to file C:\Users\glt\AppData\Roaming\firebase\ma8122576_gmail_com_application_default_credentials.json
+[debug] [2024-10-17T16:34:51.991Z] DEBUG: Setting GAC to C:\Users\glt\AppData\Roaming\firebase\ma8122576_gmail_com_application_default_credentials.json
+[debug] [2024-10-17T16:34:51.993Z] Checked if tokens are valid: true, expires at: 1729186489136
+[debug] [2024-10-17T16:34:51.993Z] Checked if tokens are valid: true, expires at: 1729186489136
+[debug] [2024-10-17T16:34:51.994Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig [none]
+[debug] [2024-10-17T16:34:53.197Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig 200
+[debug] [2024-10-17T16:34:53.197Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig {"projectId":"autoservicesreact","databaseURL":"https://autoservicesreact-default-rtdb.firebaseio.com","storageBucket":"autoservicesreact.appspot.com","locationId":"us-central"}
+[debug] [2024-10-17T16:34:53.259Z] [functions] Watching "C:\Users\glt\notes\functions" for Cloud Functions...
+[debug] [2024-10-17T16:34:53.288Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2024-10-17T16:34:58.036Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-17T16:34:58.037Z] Building nodejs source
+[debug] [2024-10-17T16:34:58.039Z] Failed to find version of module node: reached end of search path C:\Users\glt\notes\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-10-17T16:34:58.052Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-17T16:34:58.100Z] Found firebase-functions binary at 'C:\Users\glt\notes\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8404
+
+[debug] [2024-10-17T16:35:01.323Z] Got response from /__/functions.yaml {"endpoints":{"helloWorld":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"helloWorld"},"sendDailyReport":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 16 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":"America/New_York"},"labels":{},"entryPoint":"sendDailyReport"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[debug] [2024-10-17T16:35:06.536Z] [functions] Loaded functions definitions from source: helloWorld, sendDailyReport.
+[debug] [2024-10-17T16:35:06.539Z] [functions[us-central1-helloWorld]] http function initialized (http://127.0.0.1:5000/autoservicesreact/us-central1/helloWorld).
+[debug] [2024-10-17T16:35:06.541Z] [functions[us-central1-sendDailyReport]] function ignored because the pubsub emulator does not exist or is not running.
+[info] i  functions: Loaded functions: helloWorld, sendDailyReport 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc, tasks 
+[debug] [2024-10-17T19:42:19.687Z] ----------------------------------------------------------------------
+[debug] [2024-10-17T19:42:19.708Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\glt\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2024-10-17T19:42:19.708Z] CLI Version:   13.22.0
+[debug] [2024-10-17T19:42:19.708Z] Platform:      win32
+[debug] [2024-10-17T19:42:19.708Z] Node Version:  v20.12.2
+[debug] [2024-10-17T19:42:19.709Z] Time:          Fri Oct 18 2024 00:42:19 GMT+0500 (Pakistan Standard Time)
+[debug] [2024-10-17T19:42:19.709Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-17T19:42:19.795Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-17T19:42:19.795Z] > authorizing via signed-in user (ma8122576@gmail.com)
+[debug] [2024-10-17T19:42:19.796Z] [iam] checking project autoservicesreact for permissions ["firebase.projects.get"]
+[debug] [2024-10-17T19:42:19.798Z] Checked if tokens are valid: false, expires at: 1729186489136
+[debug] [2024-10-17T19:42:19.799Z] Checked if tokens are valid: false, expires at: 1729186489136
+[debug] [2024-10-17T19:42:19.799Z] > refreshing access token with scopes: []
+[debug] [2024-10-17T19:42:19.801Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-17T19:42:19.801Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-17T19:42:20.447Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-10-17T19:42:20.448Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-17T19:42:20.462Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions [none]
+[debug] [2024-10-17T19:42:20.463Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions x-goog-quota-user=projects/autoservicesreact
+[debug] [2024-10-17T19:42:20.463Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-17T19:42:22.105Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions 200
+[debug] [2024-10-17T19:42:22.106Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/autoservicesreact:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-17T19:42:22.127Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-17T19:42:22.131Z] defaultcredentials: writing to file C:\Users\glt\AppData\Roaming\firebase\ma8122576_gmail_com_application_default_credentials.json
+[debug] [2024-10-17T19:42:22.134Z] DEBUG: Setting GAC to C:\Users\glt\AppData\Roaming\firebase\ma8122576_gmail_com_application_default_credentials.json
+[debug] [2024-10-17T19:42:22.135Z] Checked if tokens are valid: true, expires at: 1729197739448
+[debug] [2024-10-17T19:42:22.135Z] Checked if tokens are valid: true, expires at: 1729197739448
+[debug] [2024-10-17T19:42:22.135Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig [none]
+[debug] [2024-10-17T19:42:23.180Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig 200
+[debug] [2024-10-17T19:42:23.181Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/autoservicesreact/adminSdkConfig {"projectId":"autoservicesreact","databaseURL":"https://autoservicesreact-default-rtdb.firebaseio.com","storageBucket":"autoservicesreact.appspot.com","locationId":"us-central"}
+[debug] [2024-10-17T19:42:23.212Z] [functions] Watching "C:\Users\glt\notes\functions" for Cloud Functions...
+[debug] [2024-10-17T19:42:23.221Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2024-10-17T19:42:25.342Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-17T19:42:25.342Z] Building nodejs source
+[debug] [2024-10-17T19:42:25.343Z] Failed to find version of module node: reached end of search path C:\Users\glt\notes\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-10-17T19:42:25.347Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-17T19:42:25.357Z] Found firebase-functions binary at 'C:\Users\glt\notes\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8641
+
+[debug] [2024-10-17T19:42:26.523Z] Got response from /__/functions.yaml {"endpoints":{"helloWorld":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"helloWorld"},"sendDailyReport":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 16 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":"America/New_York"},"labels":{},"entryPoint":"sendDailyReport"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[debug] [2024-10-17T19:42:31.607Z] [functions] Loaded functions definitions from source: helloWorld, sendDailyReport.
+[debug] [2024-10-17T19:42:31.608Z] [functions[us-central1-helloWorld]] http function initialized (http://127.0.0.1:5000/autoservicesreact/us-central1/helloWorld).
+[debug] [2024-10-17T19:42:31.609Z] [functions[us-central1-sendDailyReport]] function ignored because the pubsub emulator does not exist or is not running.
+[info] i  functions: Loaded functions: helloWorld, sendDailyReport 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc, tasks 
+[debug] [2024-10-17T19:42:42.949Z] shell:sendDailyReport: trigger={"entryPoint":"sendDailyReport","platform":"gcfv1","region":"us-central1","name":"sendDailyReport","id":"us-central1-sendDailyReport","codebase":"default","availableMemoryMb":256,"labels":{"EVENTARC_CLOUD_EVENT_SOURCE":"cloudfunctions-emulated.googleapis.com/projects/autoservicesreact/locations/us-central1/functions/sendDailyReport"},"timeoutSeconds":60,"secretEnvironmentVariables":[],"eventTrigger":{"eventType":"pubsub","resource":""},"schedule":{"schedule":"0 16 * * *","timeZone":"America/New_York","retryConfig":{"maxBackoffSeconds":null,"minBackoffSeconds":null,"maxRetrySeconds":null,"retryCount":null,"maxDoublings":null}}}
+[debug] [2024-10-17T19:42:42.949Z] shell:sendDailyReport: opts={}, data={}
+[debug] [2024-10-17T19:42:42.969Z] DEBUG: [worker-pool] addWorker(us-central1-sendDailyReport)
+[debug] [2024-10-17T19:42:42.970Z] DEBUG: [worker-pool] Adding worker with key us-central1-sendDailyReport, total=1
+[debug] [2024-10-17T19:42:44.303Z] DEBUG: [runtime-status] [20592] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2024-10-17T19:42:44.303Z] DEBUG: [runtime-status] [20592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-10-17T19:42:44.304Z] DEBUG: [runtime-status] [20592] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2024-10-17T19:42:44.304Z] DEBUG: [runtime-status] [20592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-10-17T19:42:44.543Z] DEBUG: [runtime-status] [20592] Checked functions.config() {"config":{}}
+[debug] [2024-10-17T19:42:44.543Z] DEBUG: [runtime-status] [20592] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}}
+[debug] [2024-10-17T19:42:44.544Z] DEBUG: [runtime-status] [20592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-10-17T19:42:44.545Z] DEBUG: [runtime-status] [20592] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2024-10-17T19:42:44.547Z] DEBUG: [runtime-status] [20592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-10-17T19:42:44.548Z] DEBUG: [runtime-status] [20592] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\glt\\notes\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2024-10-17T19:42:44.549Z] DEBUG: [runtime-status] [20592] initializeApp(DEFAULT) {"storageBucket":"autoservicesreact.appspot.com","databaseURL":"https://autoservicesreact-default-rtdb.firebaseio.com","projectId":"autoservicesreact"}
+[debug] [2024-10-17T19:42:44.593Z] DEBUG: [runtime-status] [20592] Functions runtime initialized. {"cwd":"C:\\Users\\glt\\notes\\functions","node_version":"20.12.2"}
+[debug] [2024-10-17T19:42:44.594Z] DEBUG: [runtime-status] [20592] Listening to port: \\?\pipe\fire_emu_2d3009a17876d1f3
+[debug] [2024-10-17T19:42:44.604Z] DEBUG: [worker-us-central1-sendDailyReport-c0b5b4e5-f8fc-4057-8ea7-663677579ce9]: IDLE
+[debug] [2024-10-17T19:42:44.647Z] DEBUG: [runtime-status] [20592] RunBackground {"data":{},"context":{"eventId":"3777815b-f1f1-4a07-a99d-5e086ff790f1","timestamp":"2024-10-17T19:42:42.950Z","eventType":"pubsub","auth":{"admin":false}}}
+[warn] !  functions: The Realtime Database emulator is not running, so calls to Realtime Database will affect production. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"The Realtime Database emulator is not running, so calls to Realtime Database will affect production."}}
+[info] >  No notes added today for user: 03555184441. {"user":"No notes added today for user: 03555184441.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 03555184441."}}
+[info] >  No notes added today for user: 4377331467. {"user":"No notes added today for user: 4377331467.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 4377331467."}}
+[info] >  No notes added today for user: 6092355015. {"user":"No notes added today for user: 6092355015.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 6092355015."}}
+[info] >  No notes added today for user: 6506900634. {"user":"No notes added today for user: 6506900634.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 6506900634."}}
+[info] >  No notes added today for user: 661-405-6580 . {"user":"No notes added today for user: 661-405-6580 .","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 661-405-6580 ."}}
+[info] >  No notes added today for user: 7146619284. {"user":"No notes added today for user: 7146619284.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 7146619284."}}
+[info] >  No notes added today for user: 8087211309. {"user":"No notes added today for user: 8087211309.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 8087211309."}}
+[info] >  No notes added today for user: 9499467449. {"user":"No notes added today for user: 9499467449.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: 9499467449."}}
+[info] >  No notes added today for user: appomatrix. {"user":"No notes added today for user: appomatrix.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-sendDailyReport"},"extension":{},"message":"\u001b[90m> \u001b[39m No notes added today for user: appomatrix."}}
+[debug] [2024-10-17T20:44:56.550Z] DEBUG: File C:\Users\glt\notes\functions\index.js changed, reloading triggers
+[debug] [2024-10-17T20:44:57.562Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2024-10-17T20:45:02.436Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-17T20:45:02.436Z] Building nodejs source
+[debug] [2024-10-17T20:45:02.437Z] Failed to find version of module node: reached end of search path C:\Users\glt\notes\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-10-17T20:45:02.439Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-17T20:45:02.458Z] Found firebase-functions binary at 'C:\Users\glt\notes\functions\node_modules\.bin\firebase-functions'
+[debug] [2024-10-17T20:45:02.492Z] DEBUG: File C:\Users\glt\notes\functions\index.js changed, reloading triggers
+[info] Serving at port 8530
+
+[debug] [2024-10-17T20:45:03.501Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2024-10-17T20:45:07.484Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-17T20:45:07.484Z] Building nodejs source
+[debug] [2024-10-17T20:45:07.484Z] Failed to find version of module node: reached end of search path C:\Users\glt\notes\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-10-17T20:45:07.486Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-17T20:45:07.503Z] Found firebase-functions binary at 'C:\Users\glt\notes\functions\node_modules\.bin\firebase-functions'
+[debug] [2024-10-17T20:45:07.516Z] Got response from /__/functions.yaml {"endpoints":{"helloWorld":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"helloWorld"},"sendDailyReport":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 16 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":"America/New_York"},"labels":{},"entryPoint":"sendDailyReport"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[info] Serving at port 8932
+
+[debug] [2024-10-17T20:45:08.753Z] Got response from /__/functions.yaml {"endpoints":{"helloWorld":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"helloWorld"},"sendDailyReport":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 16 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":"America/New_York"},"labels":{},"entryPoint":"sendDailyReport"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[debug] [2024-10-17T20:45:12.665Z] [functions] Loaded functions definitions from source: helloWorld, sendDailyReport.
+[debug] [2024-10-17T20:45:12.667Z] DEBUG: [worker-pool] Shutting down IDLE worker (us-central1-sendDailyReport)
+[debug] [2024-10-17T20:45:12.667Z] DEBUG: [worker-us-central1-sendDailyReport-c0b5b4e5-f8fc-4057-8ea7-663677579ce9]: FINISHING
+[debug] [2024-10-17T20:45:12.717Z] DEBUG: [worker-us-central1-sendDailyReport-c0b5b4e5-f8fc-4057-8ea7-663677579ce9]: exited
+[debug] [2024-10-17T20:45:12.718Z] DEBUG: [worker-us-central1-sendDailyReport-c0b5b4e5-f8fc-4057-8ea7-663677579ce9]: FINISHED
+[debug] [2024-10-17T20:45:13.807Z] [functions] Loaded functions definitions from source: helloWorld, sendDailyReport.

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
+import { BrowserRouter as Router, Route, Switch, useNavigate, Routes } from 'react-router-dom'; // Import Router components
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'; // Correct import for Firebase storage reference
 import { ref as databaseRef, set, get } from 'firebase/database'; 
 import { storage, database } from './firebase';
@@ -11,6 +12,8 @@ import Cookies from 'js-cookie';
 import './App.css';
 
 function App() {
+  const navigate = useNavigate(); 
+  const [dialogMessage, setDialogMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
     phoneNumber: '',
@@ -23,6 +26,10 @@ function App() {
     liveDemoDelivered: '', // Reset new field
 
   });
+
+
+
+  const [dailyReportCount, setDailyReportCount] = useState(0);
 
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [imageUrl, setImageUrl] = useState('');
@@ -44,6 +51,8 @@ function App() {
     const storedPhoneNumber = Cookies.get('phoneNumber');
 
     setFormData({
+
+      
       username: storedUsername || '',
       phoneNumber: storedPhoneNumber || '',
       retailName: '',
@@ -55,6 +64,11 @@ function App() {
       liveDemoDelivered: '', // Reset new field
 
     });
+
+    setShowDialog(false); // Hide the dialog
+    // handlePermissionRequest();
+
+
 
     const checkLocationPermission = async () => {
       const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
@@ -77,17 +91,34 @@ function App() {
     checkLocationPermission();
     fetchLocation();
 
-    // Set video constraints based on device type
-    const userAgent = navigator.userAgent;
-    if (/Android/i.test(userAgent) || /iPhone|iPad|iPod/i.test(userAgent)) {
-      setVideoConstraints({ facingMode: { exact: 'environment' } }); // Back camera for mobile
-    } else {
-      setVideoConstraints({ facingMode: 'user' }); // Front camera for desktop
-    }
-  }, []);
+      // Detect if the device is mobile or desktop
+      const userAgent = navigator.userAgent;
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent);
+  
+      // Set video constraints for mobile and desktop devices
+      if (isMobile) {
+        // Back camera for mobile devices
+        setVideoConstraints({ facingMode: { exact: 'environment' } });
+      } else {
+        // Front camera for desktops/laptops
+        setVideoConstraints({ facingMode: 'user' });
+      }
+  
+  }, []);   ///
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+ 
+
+  const handlePermissionRequest = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      console.log('Camera and audio permissions granted');
+    } catch (error) {
+      console.log('Camera and audio permissions denied:', error);
+      alert('Please enable camera and audio permissions in your browser settings to use this feature.');
+    }
   };
 
   const handleInterestChange = (e) => {
@@ -102,6 +133,7 @@ function App() {
       setIsCameraVisible(false);
     }
   };
+  
 
   const startRecording = () => {
     navigator.mediaDevices
@@ -181,10 +213,10 @@ function App() {
           longitude: position.coords.longitude,
         });
       }, () => {
-        showAlertDialog("Please contact AutoService AI Support");
+       showAlertDialog("Please go to your settings menu and update permissions or user another browser");
       });
     } else {
-      showAlertDialog("Please contact AutoService AI Support");
+      showAlertDialog("Please go to your settings menu and update permissions or user another browser");
     }
   };
 
@@ -229,13 +261,73 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isAllFieldsFilled = formData.username && formData.phoneNumber && formData.retailName && formData.visitSummary && formData.nextAction && formData.interestLevel && formData.metGM && formData.metSD && formData.liveDemoDelivered;
+    // const isAllFieldsFilled = formData.username && formData.phoneNumber && formData.retailName && formData.visitSummary && formData.nextAction && formData.interestLevel && formData.metGM && formData.metSD && formData.liveDemoDelivered;
 
-    if (!isAllFieldsFilled) {
-      alert('Please fill all fields .');
+    // if (!isAllFieldsFilled) {
+    //   alert('Please fill all fields .');
+    //   return;
+    // }
+   
+    ///
+
+
+    if (!formData.username) {
+      alert('Please fill in the Username.');
       return;
     }
+    
+    if (!formData.phoneNumber) {
+      alert('Please fill in the Phone Number.');
+      return;
 
+    }
+    
+    if (!formData.retailName) {
+      alert('Please fill in the Retail Name.');
+      return;
+
+    }
+    
+    if (!formData.visitSummary) {
+      alert('Please fill in the Visit Summary.');
+      return;
+
+    }
+    
+    if (!formData.nextAction) {
+      alert('Please fill in the Next Action.');
+      return;
+
+    }
+    
+    if (!formData.interestLevel) {
+      alert('Please select the Interest Level.');
+      return;
+
+    }
+    
+    if (!formData.metGM) {
+      alert('Please specify if you met GM.');
+      return;
+
+    }
+    
+    if (!formData.metSD) {
+      alert('Please specify if you met SD.');
+      return;
+
+    }
+    
+    if (!formData.liveDemoDelivered) {
+      alert('Please indicate if a Live Demo was delivered.');
+      return;
+
+    }
+    
+
+
+
+    ///
     Cookies.set('username', formData.username, { expires: 365 * 10 }); // Lasts for 10 years
     Cookies.set('phoneNumber', formData.phoneNumber, { expires: 365 * 10 });
 
@@ -244,7 +336,10 @@ function App() {
     const audioDownloadUrl = await handleAudioUpload();
     const imageDownloadUrl = await handleImageUpload();
 
-    const dataRef = databaseRef(database, `formData/${formData.phoneNumber}/${Date.now()}`);
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0]
+
+    const dataRef = databaseRef(database, `formData/${formData.username}/${formattedDate}/${Date.now()}`);
     await set(dataRef, {
       voiceUrl: audioDownloadUrl || null,
       businessCardUrl: imageDownloadUrl,
@@ -267,7 +362,9 @@ function App() {
     });
 
     setShowProgress(false);
-    alert('Submitted successfully!');
+   
+    // Navigate to success page
+    navigate('/success');
   };
 
   const showAlertDialog = (message) => {
@@ -299,9 +396,9 @@ function App() {
       
    };
 
-   const titleDesc=(mm,dd,retailName,visitSummary) =>{
+   const titleDesc=(mm,dd,retailName,nextAction) =>{
 
-    return `${dd}/${mm} ${retailName} - ${visitSummary}`
+    return `${mm}/${dd} ${retailName} - ${nextAction}`
    };
    
    
@@ -322,7 +419,7 @@ function App() {
     const description = formatDescription(MM, DD, retailName, visitSummary, metGM, metSD, liveDemoDelivered,businessCardUrl);
     const listValue = determineListValue(interestLevel);
 
-  const title=titleDesc(MM,DD,retailName,visitSummary);
+  const title=titleDesc(MM,DD,retailName,nextAction);
     const trelloApi = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/trelloAddTask?name=${title}&desc=${encodeURIComponent(description)}&board=${board}&list=${listValue}`;
 
     try {
@@ -333,13 +430,20 @@ function App() {
             console.log("Failed to add task to Trello");
         }
     } catch (error) {
+      const trelloApiError = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/trelloAddTask?name=${title}&desc=${encodeURIComponent(description)}&board=10-Sales&list=${listValue}`;
+
+      const response = await axios.get(trelloApiError);
         console.error('Error:', error);
         if (error.response) {
             console.log("Error status", error.response.status);
             console.log("Error details", error.response.data);
+
         }
     }
 };
+
+//
+
 
 //
 
@@ -374,49 +478,80 @@ async function getBoardValue(phoneNumber) {
   
 
   return (
+ 
+
+  
     <div className="App">
+       
+      
+     
       {isLoading && <div className="loading">Loading...</div>}
       {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
-      {showDialog && (
+      {/* {showDialog && (
         <div className="custom-dialog">
           <p>Please contact AutoService AI Support</p>
           <button onClick={() => setShowDialog(false)}>Close</button>
         </div>
-      )}
+      )} */}
 
-      <h1>AutoService AI Notes</h1>
       <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input type="text" name="username" value={formData.username} onChange={handleChange} />
 
-        <label>Phone Number</label>
-        <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+       
+      <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+      <label style={{ fontSize: '15px' }}>Your Name</label>
 
-        <label>Dealer Name</label>
+
+  <input type="text" name="username" value={formData.username} onChange={handleChange} />
+</div>
+      
+
+
+  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <label  style={{ fontSize: '15px' }}>Your Phone</label>
+        <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+</div>
+
+
+
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+        <label style={{ fontSize: '15px' }}>Dealer Name</label>
         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} />
+        </div>
 
-        <label>Live Demo Delivered?</label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+        <label style={{ fontSize: '15px' }}>Live Demo Delivered?</label>
         <select name="liveDemoDelivered" value={formData.liveDemoDelivered} onChange={handleChange}>
           <option value="">Select</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
+</div>
+<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
 
-        <label>Met GM?</label>
+        <label style={{ fontSize: '15px' }}>Met GM?</label>
         <select name="metGM" value={formData.metGM} onChange={handleChange}>
           <option value="">Select</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
+        </div>
 
-        <label>Met SD?</label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+        <label style={{ fontSize: '15px' }}>Met SD?</label>
         <select name="metSD" value={formData.metSD} onChange={handleChange}>
           <option value="">Select</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
+        </div>
         
-        <label>Interest Level</label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+        <label style={{ fontSize: '15px' }}>Interest Level</label>
         <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
           <option value="">Select Interest Level</option>
           <option value="High">High</option>
@@ -424,27 +559,52 @@ async function getBoardValue(phoneNumber) {
           <option value="Low">Low</option>
         </select>
 
-        <label>Visit Summary</label>
-        <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} />
-
-        <label>Next Action</label>
-        <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} />
+        </div>
 
 
-        {isCameraVisible && (
-          <>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+        <label style={{ fontSize: '15px' }}>Visit Summary</label>
+        <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange}   style={{height: '40px' }} />
+</div>
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+        <label style={{ fontSize: '15px' }}>Next Action</label>
+        <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} style={{height: '40px' }}  />
+</div>
+
+        {videoConstraints  && (
+         <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>
             <Webcam
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints} // Use dynamic constraints based on device
             />
-            <button type="button" onClick={captureImage}>Capture business cards</button>
-          </>
+            </div>
         )}
 
-        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
+       {/* {showDialog && (
+        <Dialog
+          message={dialogMessage}
+          onNewReport={handleNewReportClick}
+        />
+      )} */}
 
+{capturedImageUrl && <img src={capturedImageUrl} alt="Captured" style={{ width: '100%', height: '140px' }} />}
+
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+        <button type="button" onClick={captureImage}>Capture business cards</button>
+
+
+
+       
+
+        <button type="submit">Submit</button>
+        </div>
         <div className="recording-controls">
           <button
             type="button"
@@ -454,11 +614,50 @@ async function getBoardValue(phoneNumber) {
             {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
           </button>
         </div>
-
-        <button type="submit">Submit</button>
       </form>
-    </div>
+
+      
+     
+    </div>   
+
+   
   );
 }
 
-export default App;
+// const Dialog = ({ message, onNewReport }) => {
+//   return (
+//     <div className="dialog-overlay">
+//       <div className="dialog">
+//         <p>{message}</p>
+//         <button onClick={onNewReport}>New Report</button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// const SuccessPage = ({ onBack }) => {
+//   return (
+//     <div className="success-page">
+//       <h2>Submission Successful!</h2>
+//       <p>Your report has been submitted successfully.</p>
+//       <button onClick={onBack}>Back to Form</button>
+//     </div>
+//   );
+// };
+const SuccessPage = () => (
+  <div className="success-container">
+    <h2>Success!</h2>
+    <p>Your data has been submitted successfully.</p>
+    <a href="/">Go Back</a>
+  </div>
+);
+const Main = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/success" element={<SuccessPage />} />
+    </Routes>
+  </Router>
+);
+
+export default Main;
