@@ -24,6 +24,7 @@ function App() {
     retailName: '',
     visitSummary: '',
     nextAction: '',
+    board:'',
     metGM: false,
     metSD: false,
     interestLevel: '',
@@ -51,15 +52,47 @@ function App() {
   const mediaRecorderRef = useRef(null);
 
   const [isUsernamePhoneHidden, setIsUsernamePhoneHidden] = useState(false); // State to manage hiding fields
+  const [boardExists, setBoardExists] = useState(true); // New state to track if board value exists
+  const [newBoardValue, setNewBoardValue] = useState(''); // New state to store new board value input
+
 
 
   useEffect(() => {
     const storedUsername = Cookies.get('username');
     const storedPhoneNumber = Cookies.get('phoneNumber');
 
+    const checkBoardValue = async () => {
+      try {
+        console.log("checkBoardValue() called");
+        console.log("Fetching board value for username:", formData.username);
     
-
-
+        const boardRef = databaseRef(database, `formData/${formData.username}/board`);
+        console.log("Board reference:", boardRef);
+    
+        const boardSnapshot = await get(boardRef);
+        console.log("Board snapshot fetched:", boardSnapshot);
+    
+        if (boardSnapshot.exists()) {
+          console.log("Board value exists:", boardSnapshot.val());
+    
+          setFormData(prevData => ({
+            ...prevData,
+            boardValue: boardSnapshot.val(),
+          }));
+    
+          setBoardExists(true); // Board value exists, no need to show input field
+          console.log("Board exists. Input field will not be shown.");
+        } else {
+          console.log("Board value does not exist for the user.");
+    
+          setBoardExists(false); // Board value does not exist, show input field
+          console.log("Board does not exist. Input field will be shown.");
+        }
+      } catch (error) {
+        console.error("Error in checkBoardValue():", error);
+      }
+    };
+    
     if (storedUsername && storedPhoneNumber) {
       setIsUsernamePhoneHidden(true); // Hide fields if both values exist
       setFormData((prevData) => ({
@@ -107,8 +140,15 @@ function App() {
         // Front camera for desktops/laptops
         setVideoConstraints({ facingMode: 'user' });
       }
+
+      if (formData.username==null || storedUsername==null) {
+        setBoardExists(false); 
+      }else{
+        checkBoardValue();
+      }
+
   
-  }, []);   ///
+  }, [formData.username]);   ///
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -123,6 +163,23 @@ function App() {
       console.log('Camera and audio permissions denied:', error);
       alert('Please enable camera and audio permissions in your browser settings to use this feature.');
     }
+  };
+
+  const handleBoardValueSubmit = async () => {
+    // if (newBoardValue.trim() === '') {
+    //   alert('Please enter a valid board value.');
+    //   return;
+    // }
+
+    const boardRef = databaseRef(database, `users/${formData.username}/board`);
+    await set(boardRef, newBoardValue);
+
+    setFormData(prevData => ({
+      ...prevData,
+      boardValue: newBoardValue,
+    }));
+
+    setBoardExists(true); // After setting the board value, hide the input field
   };
 
   const handleInterestChange = (e) => {
@@ -235,14 +292,14 @@ function App() {
   };
 
   const sendNotification = async (data) => {
-    const { phone, retailName, linkToBusCard, audioFile } = data;
+    const {username, phone, retailName, linkToBusCard, audioFile } = data;
     const channel = 'dealervisit';
     const time = new Date().toISOString();
     const gps = `${location.latitude}, ${location.longitude}`;
     const liveDemoMessage = formData.liveDemoDelivered ? ` - Live Demo Delivered: ${getYesNoValue(formData.liveDemoDelivered)}` : '';
 
 
-    const message = `User: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}${liveDemoMessage}`;
+    const message = `Username: ${username} - Phone: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}${liveDemoMessage}`;
     const slackUrl = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/sendSlackNotification?channel=${channel}&message=${encodeURIComponent(message)}`;
 
     try {
@@ -295,7 +352,12 @@ function App() {
       return;
 
     }
-    
+
+    if(!formData.board){
+      alert('Please add board value.');
+      return;
+    }
+
     if (!formData.retailName) {
       alert('Please fill in the Retail Name.');
       return;
@@ -319,6 +381,8 @@ function App() {
       return;
 
     }
+
+  
     
     // if (!formData.metGM) {
     //   alert('Please specify if you met GM.');
@@ -343,6 +407,7 @@ function App() {
 
     ///
  
+    handleBoardValueSubmit();
 
     setShowProgress(true);
 
@@ -376,6 +441,7 @@ function App() {
     });
 
     await sendNotification({
+      username: formData.username,
       phone: formData.phoneNumber,
       retailName: formData.retailName,
       linkToBusCard: imageDownloadUrl,
@@ -421,7 +487,7 @@ function App() {
     const MM = String(today.getMonth() + 1).padStart(2, '0');
     const DD = String(today.getDate()).padStart(2, '0');
 
-    const board= await getBoardValue(formData.phoneNumber);
+    const board= await getBoardValue(formData.username);
     
     //const board = "10-Sales"; // Default value if not found
     
@@ -555,7 +621,17 @@ async function getBoardValue(phoneNumber) {
 </>
      )}  
 
-
+{!boardExists && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <label style={{ fontSize: '15px' }}>Board Value</label>
+          <input
+            type="text"
+            name="board"
+            value={formData.board}
+            onChange={handleChange}
+          />
+        </div>
+      )}
 
 
 
