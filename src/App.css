@@ -111,11 +111,23 @@ button:hover {
   height: 100vh; /* Full viewport height */
   text-align: center; /* Center text */
 }
+.vertical-line {
+  width: 3px;
+  height: 30px; /* Adjust height as needed */
+  background-color: #ffffff; /* Change color as needed */
+  margin-left: 10px; /* Adds spacing */
+  display: inline-block;
+}
+
 
 /* Responsive Styles */
 
 
 @media (max-width: 600px) {
+
+  .vertical-line {
+    height: 20px; /* Adjust height for mobile if needed */
+  }
   form {
     padding: 10px; /* Less padding on smaller screens */
     margin: 0 10px; /* Margin for mobile */
@@ -163,5 +175,9 @@ button:hover {
   .dialog button {
     margin-top: 10px;
   }
+
+
+
+
   
 }

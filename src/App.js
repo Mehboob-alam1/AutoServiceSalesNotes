@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, useNavigate, Routes } from 'react-route
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'; // Correct import for Firebase storage reference
 import { ref as databaseRef, set, get } from 'firebase/database'; 
 import { storage, database } from './firebase';
+import { WebcamCapture} from './Webcam'
+
 import axios from 'axios';
 // Import the Material-UI switch component
 import Switch from './Switch'; // Import your Switch component
@@ -28,6 +30,7 @@ function App() {
     metGM: false,
     metSD: false,
     interestLevel: '',
+    revisit:false,
     liveDemoDelivered: false, // Reset new field
 
   });
@@ -47,6 +50,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
   const [videoConstraints, setVideoConstraints] = useState({});
+  const [isWebcamActive, setIsWebcamActive] = useState(true); // State to control webcam display
 
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -77,7 +81,7 @@ function App() {
     
           setFormData(prevData => ({
             ...prevData,
-            boardValue: boardSnapshot.val(),
+            board: boardSnapshot.val(),
           }));
     
           setBoardExists(true); // Board value exists, no need to show input field
@@ -135,10 +139,24 @@ function App() {
       // Set video constraints for mobile and desktop devices
       if (isMobile) {
         // Back camera for mobile devices
-        setVideoConstraints({ facingMode: { exact: 'environment' } });
+
+        setVideoConstraints(
+          {
+            width: 220,
+            height: 200,
+            facingMode: { exact: 'environment'}
+          }
+        )
       } else {
         // Front camera for desktops/laptops
-        setVideoConstraints({ facingMode: 'user' });
+        setVideoConstraints(
+          {
+            width: 220,
+            height: 200,
+            facingMode: "user"
+          }
+        )
+       
       }
 
       if (formData.username==null || storedUsername==null) {
@@ -154,7 +172,7 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
  
-
+ 
   const handlePermissionRequest = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -185,6 +203,8 @@ function App() {
   const handleInterestChange = (e) => {
     setFormData({ ...formData, interestLevel: e.target.value });
   };
+
+  
 
   const captureImage = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -284,22 +304,22 @@ function App() {
           longitude: position.coords.longitude,
         });
       }, () => {
-       showAlertDialog("Please go to your settings menu and update permissions or user another browser");
+       //showAlertDialog("Please go to your settings menu and update permissions or user another browser");
       });
     } else {
-      showAlertDialog("Please go to your settings menu and update permissions or user another browser");
+      showAlertDialog("Please go to your settings menu and update location permissions or user another browser");
     }
   };
 
   const sendNotification = async (data) => {
-    const {username, phone, retailName, linkToBusCard, audioFile } = data;
+    const {username, phone, retailName, linkToBusCard, audioFile,revisit} = data;
     const channel = 'dealervisit';
     const time = new Date().toISOString();
     const gps = `${location.latitude}, ${location.longitude}`;
     const liveDemoMessage = formData.liveDemoDelivered ? ` - Live Demo Delivered: ${getYesNoValue(formData.liveDemoDelivered)}` : '';
 
 
-    const message = `Username: ${username} - Phone: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}${liveDemoMessage}`;
+    const message = `Username: ${username} - Phone: ${phone} - RetailName: ${retailName} - Time: ${time} - LinkToBusCard: ${linkToBusCard} - GPS: ${gps}${liveDemoMessage} - Re-Visit: ${getYesNoValue(revisit)}`;
     const slackUrl = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/sendSlackNotification?channel=${channel}&message=${encodeURIComponent(message)}`;
 
     try {
@@ -423,6 +443,7 @@ function App() {
       ...formData,
       metGM: getYesNoValue(formData.metGM),
       metSD: getYesNoValue(formData.metSD),
+      revisit:getYesNoValue(formData.revisit),
       liveDemoDelivered: getYesNoValue(formData.liveDemoDelivered), // Assuming liveDemoDelivered is also a switch
     };
 
@@ -446,6 +467,7 @@ function App() {
       retailName: formData.retailName,
       linkToBusCard: imageDownloadUrl,
       audioFile: audioDownloadUrl,
+      revisit: formData.revisit
     });
 
 
@@ -477,6 +499,7 @@ function App() {
 
     var gm= getYesNoValue(formData.metGM);
     var sd= getYesNoValue(formData.metSD);
+    var revisit= getYesNoValue(formData.revisit);
 
     var ldd= getYesNoValue(formData.liveDemoDelivered);
 
@@ -491,11 +514,11 @@ function App() {
     
     //const board = "10-Sales"; // Default value if not found
     
-    const formatDescription = (mm, dd, retailName, visitSummary, metGM, metSD, liveDemoDelivered, businessCardUrl) => {
+    const formatDescription = (mm, dd, retailName, visitSummary, metGM, metSD, liveDemoDelivered, businessCardUrl,revisit) => {
 
       const encodedBusinessCardUrl = encodeURIComponent(businessCardUrl);
 
-      return `${dd}/${mm} ${retailName} - ${visitSummary} NOTES// ${visitSummary} NEXT ACTIONS// ${nextAction} MET GM// ${gm} MET SD// ${sd} Business Card// ${encodedBusinessCardUrl} Live demo delivered// ${ldd}`;
+      return `${dd}/${mm} ${retailName} - ${visitSummary} NOTES// ${visitSummary} NEXT ACTIONS// ${nextAction} MET GM// ${gm} MET SD// ${sd} Business Card// ${encodedBusinessCardUrl} Live demo delivered// ${ldd} Re-Visit// ${revisit}`;
 
   
       
@@ -523,7 +546,7 @@ function App() {
       }
     };
   
-    const description = formatDescription(MM, DD, retailName, visitSummary, metGM, metSD, liveDemoDelivered,businessCardUrl);
+    const description = formatDescription(MM, DD, retailName, visitSummary, metGM, metSD, liveDemoDelivered,businessCardUrl,revisit);
     const listValue = determineListValue(interestLevel);
 
   const title=titleDesc(MM,DD,retailName,nextAction);
@@ -642,7 +665,7 @@ async function getBoardValue(phoneNumber) {
         </div>
 
 <div style={{ display: 'flex', alignItems: 'center',justifyContent:'center', gap: '15px' }}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+  <div style={{ display: 'flex', alignItems: 'center'}}>
     <label style={{ fontSize: '15px' }}>Live Demo Delivered</label>
     <Switch 
       checked={formData.liveDemoDelivered} 
@@ -650,22 +673,33 @@ async function getBoardValue(phoneNumber) {
       onChange={() => handleSwitchChange('liveDemoDelivered')}
     />
   </div>
-  
-  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+  <div class="vertical-line"></div>
+  <div style={{ display: 'flex', alignItems: 'center'}}>
     <label style={{ fontSize: '15px' }}>Met GM</label>
     <Switch 
       checked={formData.metGM} 
       onChange={() => handleSwitchChange('metGM')}  
          />
   </div>
-
-  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+  <div class="vertical-line"></div>
+  <div style={{ display: 'flex', alignItems: 'center'}}>
     <label style={{ fontSize: '15px' }}>Met SD</label>
     <Switch 
       checked={formData.metSD} 
       onChange={() => handleSwitchChange('metSD')} 
     />
   </div>
+  <div class="vertical-line"></div>
+  
+<div style={{ display: 'flex', alignItems: 'center'}}>
+
+<label style={{ fontSize: '15px' }}>Re-Visit</label>
+<Switch 
+      checked={formData.revisit} 
+      onChange={() => handleSwitchChange('revisit')} 
+    />
+
+</div>
 </div>
           
         
@@ -681,7 +715,7 @@ async function getBoardValue(phoneNumber) {
         </select>
 
         </div>
-
+    
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
 
@@ -695,16 +729,41 @@ async function getBoardValue(phoneNumber) {
         <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} style={{height: '40px' }}  />
 </div>
 
-        {videoConstraints  && (
-         <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>
+{capturedImageUrl =='' && (
+             
+ 
             <Webcam
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
+              height={200}
+              width={200}
               videoConstraints={videoConstraints} // Use dynamic constraints based on device
             />
-            </div>
+        
         )}
+
+        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured"  style={{ width: '100%', height: '200px', objectFit:'contain'}} />}
+
+        {/* {isCameraVisible &&(
+         <div style={{ width: '80%', height: '200px',overflow :'hidden'}}>
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={videoConstraints}
+              style={{
+                width: '100%',  // Ensure the webcam uses full width
+                height: '200px',
+               
+                 // Set the height to match the container
+               // Ensure video fills the container while maintaining aspect ratio
+                borderRadius: '8px' // Optional: rounded corners for aesthetics
+              }}
+           // Use dynamic constraints based on device
+            />
+            </div>
+        )} */}
 
        {/* {showDialog && (
         <Dialog
@@ -713,7 +772,13 @@ async function getBoardValue(phoneNumber) {
         />
       )} */}
 
-{capturedImageUrl && <img src={capturedImageUrl} alt="Captured" style={{ width: '100%', height: '140px' }} />}
+{/* {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" style={{     
+        width: '100%',
+        height: '200px', // Set the height to match the webcam
+        borderRadius: '8px',
+        objectFit:'contain',
+     // Ensures the image fills the container while maintaining aspect ratio
+        marginTop: '10px', }} />} */}
 
 
 <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
