@@ -1,93 +1,18 @@
 body {
-  background-color: #001f3f; /* Dark blue background */
-  color: white; /* White text */
+  background-color: #001f3f;
+  color: white;
   font-family: Arial, sans-serif;
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  box-sizing: border-box; /* Set box-sizing to border-box for consistent sizing */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Reduced padding */
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 500px; /* Adjusted max width for smaller screens */
-  background-color: #003366; /* Slightly lighter dark blue for the form */
-  padding: 20px;
-  border-radius: 10px;
-  /* Center the form */
-}
-
-label {
-  margin: 5px 0 5px;
-  font-size: 12px; /* Increased label size for readability */
-}
-
-input, textarea, select {
-  margin-bottom: 5px;
   padding: 10px;
-  font-size: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #004080; /* Darker blue for inputs */
-  color: white; /* White text for inputs */
-  width: 100%; /* Full width for inputs */
-  box-sizing: border-box; /* Ensure padding is included in width */
-}
-
-input::placeholder, textarea::placeholder {
-  color: #aaa; /* Placeholder text color */
-}
-
-button {
-  margin-top: 5px;
- 
-  padding: 10px;
-  font-size: 12px;
-  border: none;
-  border-radius: 5px;
-  background-color: #0056b3; /* Button background */
-  color: white; /* Button text color */
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%; /* Make buttons full width */
-}
-
-button:hover {
-  background-color: #0066cc; /* Lighter blue on hover */
-}
-
-.captured-image {
-  max-width: 100%;
-  height: auto;
-}
-
-.recording-controls {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0;
-}
-
-.record-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #28a745; /* Green for record button */
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%; /* Full width for record button */
-}
-
-.record-button.recording {
-  background-color: #dc3545; /* Red when recording */
 }
 
 .loading, .progress-dialog, .custom-dialog {
@@ -96,88 +21,167 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for dialogs */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
-  color: white; /* White text in dialogs */
+  color: white;
 }
+
+.responsive-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  background-color: #003366;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.form-group label {
+  font-size: 16px;
+  font-weight: bolder;
+  color: #ddd;
+  margin-right: 10px;
+  min-width: 130px;
+  text-align: right;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #004080;
+  color: white;
+  box-sizing: border-box;
+}
+
+.switch-container {
+  margin-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping */
+  gap: 15px; /* Space between switch groups */
+}
+
+.switch-group {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 15px; /* Space between label and switch */
+  width: calc(50% - 7.5px); /* Each switch group takes up half the width */
+}
+
+/* Align the first switch button of each row with the input fields */
+.switch-group:first-child {
+  margin-left: 0; /* Remove left margin for the first switch in the first row */
+}
+
+.switch-group:nth-child(3) {
+  margin-left: 0; /* Remove left margin for the first switch in the second row */
+}
+
+button {
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0056b3;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #0066cc;
+}
+
+.capture-container {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.recording-controls {
+  margin-top: 15px;
+}
+
+.record-button {
+  background-color: #28a745;
+}
+
+.record-button.recording {
+  background-color: #dc3545;
+}
+
 .success-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-  text-align: center; /* Center text */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
 }
-.vertical-line {
-  width: 3px;
-  height: 30px; /* Adjust height as needed */
-  background-color: #ffffff; /* Change color as needed */
-  margin-left: 10px; /* Adds spacing */
-  display: inline-block;
-}
-
-
-/* Responsive Styles */
-
 
 @media (max-width: 600px) {
-
-  .vertical-line {
-    height: 20px; /* Adjust height for mobile if needed */
-  }
-  form {
-    padding: 10px; /* Less padding on smaller screens */
-    margin: 0 10px; /* Margin for mobile */
+ 
+  .responsive-form {
+    padding: 10px;
+    max-width: 100%;
   }
 
-  label {
-    font-size: 16px; /* Adjust label size for smaller screens */
+  .form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  input, textarea, select {
-    font-size: 14px; /* Slightly smaller text for inputs */
+  .form-group label {
+    font-size: 12px;
+    min-width: 90px;
+    text-align: right;    
+    margin-right: 10px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 12px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .switch-container {
+    margin-bottom: 5px;
+  }
+  .switch-group {
+    
+    width: calc(60% - 80.5px); /* Maintain horizontal alignment */
   }
 
   button {
-    font-size: 14px; /* Slightly smaller button text */
+    font-size: 12px;
   }
-
-  .recording-controls {
-    flex-direction: column; /* Stack recording controls vertically on mobile */
-  }
-
-  .record-button {
-    width: 100%; /* Ensure buttons take full width */
-  }
-
-  .dialog-overlay {
-    position: fixed;
-    top: 500px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .dialog {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .dialog button {
-    margin-top: 10px;
-  }
-
-
-
 
   
 }

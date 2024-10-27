@@ -134,29 +134,10 @@ function App() {
 
       // Detect if the device is mobile or desktop
       const userAgent = navigator.userAgent;
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent);
-  
-      // Set video constraints for mobile and desktop devices
-      if (isMobile) {
-        // Back camera for mobile devices
-
-        setVideoConstraints(
-          {
-            width: 220,
-            height: 200,
-            facingMode: { exact: 'environment'}
-          }
-        )
+      if (/Android/i.test(userAgent) || /iPhone|iPad|iPod/i.test(userAgent)) {
+        setVideoConstraints({ facingMode: { exact: 'environment' } }); // Back camera for mobile
       } else {
-        // Front camera for desktops/laptops
-        setVideoConstraints(
-          {
-            width: 220,
-            height: 200,
-            facingMode: "user"
-          }
-        )
-       
+        setVideoConstraints({ facingMode: 'user' }); // Front camera for desktop
       }
 
       if (formData.username==null || storedUsername==null) {
@@ -512,7 +493,7 @@ function App() {
 
     const board= await getBoardValue(formData.username);
     
-    //const board = "10-Sales"; // Default value if not found
+    //const board = "00-MyBoard"; // Default value if not found
     
     const formatDescription = (mm, dd, retailName, visitSummary, metGM, metSD, liveDemoDelivered, businessCardUrl,revisit) => {
 
@@ -560,7 +541,7 @@ function App() {
             console.log("Failed to add task to Trello");
         }
     } catch (error) {
-      const trelloApiError = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/trelloAddTask?name=${title}&desc=${encodeURIComponent(description)}&board=10-Sales&list=${listValue}`;
+      const trelloApiError = `https://eu-west-1.aws.data.mongodb-api.com/app/application-2-febnp/endpoint/trelloAddTask?name=${title}&desc=${encodeURIComponent(description)}&board=00-MyBoard&list=${listValue}`;
 
       const response = await axios.get(trelloApiError);
         console.error('Error:', error);
@@ -588,8 +569,8 @@ async function getBoardValue(phoneNumber) {
           console.log(`Board value: ${boardValue}`);
           return boardValue; // Return the value if it exists
       } else {
-          console.log("Board value doesn't exist, assigning default '10-Sales'");
-          const defaultBoardValue = "10-Sales";
+          console.log("Board value doesn't exist, assigning default '00-MyBoard'");
+          const defaultBoardValue = "00-MyBoard";
           
           // Set the default value in Firebase
           await set(dbRef, defaultBoardValue);
@@ -598,7 +579,7 @@ async function getBoardValue(phoneNumber) {
       }
   } catch (error) {
       console.error("Error reading board value: ", error);
-      return "10-Sales"; // Return default value if there's an error
+      return "00-MyBoard"; // Return default value if there's an error
   }
 }
 
@@ -607,105 +588,357 @@ async function getBoardValue(phoneNumber) {
   
   
 
-  return (
+//   return (
  
 
   
-    <div className="App">
+//     <div className="App">
        
       
      
-      {isLoading && <div className="loading">Loading...</div>}
-      {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
-      {/* {showDialog && (
-        <div className="custom-dialog">
-          <p>Please contact AutoService AI Support</p>
-          <button onClick={() => setShowDialog(false)}>Close</button>
-        </div>
-      )} */}
+//       {isLoading && <div className="loading">Loading...</div>}
+//       {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
+      
 
-      <form onSubmit={handleSubmit}>
+//       <form onSubmit={handleSubmit}>
 
-     { !isUsernamePhoneHidden && (
-<>
-<div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-      <label style={{ fontSize: '15px' }}>Your Name</label>
+//      { !isUsernamePhoneHidden && (
+// <>
+// <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
 
 
-  <input type="text" name="username" value={formData.username} onChange={handleChange} />
-</div>
+//   <input type="text" name="username" value={formData.username} onChange={handleChange} style={{height: '45px'}} placeholder="Your name"/>
+//   <label style={{ fontSize: '15px' }}>Your Name.</label>
+
+// </div>
       
 
 
-  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-        <label  style={{ fontSize: '15px' }}>Your Phone</label>
-        <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
-</div>
-</>
-     )}  
+//   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+//         <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} style={{height: '45px' }} placeholder="Your phone number" />
+//         <label  style={{ fontSize: '15px' }}>Your Phone</label>
 
-{!boardExists && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <label style={{ fontSize: '15px' }}>Board Value</label>
-          <input
-            type="text"
-            name="board"
-            value={formData.board}
-            onChange={handleChange}
-          />
+// </div>
+// </>
+//      )}  
+
+// {!boardExists && (
+//         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+//           <input
+//             type="text"
+//             name="board"
+//             value={formData.board}
+//             onChange={handleChange}
+//             style={{height: '45px' }}
+//             placeholder="Board value"
+//           />
+//                     <label style={{ fontSize: '15px' }}>Board Value</label>
+
+//         </div>
+//       )}
+
+
+
+// <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+//         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} style={{height: '45px' }}  placeholder="Client name" />
+//         <label style={{ fontSize: '15px' }}>Client Name</label>
+
+//         </div>
+
+
+
+//         <div style={{ display: 'flex',justifyContent:'center', gap: '5px',flexDirection:'column' }}>
+
+          
+//   <div style={{display:'flex', flexDirection:'row'}}>
+//   <div style={{ display: 'flex', alignItems: 'center'}}>
+//     <label style={{ fontSize: '15px',marginRight:'20px' }} >Live Demo</label>
+//     <Switch 
+//       checked={formData.liveDemoDelivered} 
+     
+//       onChange={() => handleSwitchChange('liveDemoDelivered')}
+//     />
+//   </div>
+  
+
+//   <div style={{ display: 'flex', alignItems: 'center',paddingLeft:'20px'}}>
+
+// <label style={{ fontSize: '15px',paddingLeft:'100px',marginRight:'20px'}}>Re-Visit</label>
+// <Switch 
+//       checked={formData.revisit} 
+//       onChange={() => handleSwitchChange('revisit')} 
+//     />
+
+// </div>
+// </div>
+
+
+
+// <div style={{display:'flex',flexDirection:'row'}}>
+// <div style={{ display: 'flex', alignItems: 'center'}}>
+//     <label style={{ fontSize: '15px',marginRight:'40px'}}>Met GM</label>
+//     <Switch 
+      
+//       checked={formData.metGM} 
+//       onChange={() => handleSwitchChange('metGM')}  
+//          />
+//   </div>
+//   <div style={{ display: 'flex', alignItems: 'center'}}>
+//     <label style={{ fontSize: '15px',paddingLeft:'117px',marginRight:'20px'}}>Met SD</label>
+//     <Switch 
+//       checked={formData.metSD} 
+//       onChange={() => handleSwitchChange('metSD')} 
+//     />
+//   </div>
+//  </div>
+
+
+
+// </div>
+
+
+
+
+
+//         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+//         <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange} style={{height:'45px'}} >
+//           <option value="">Select Interest Level</option>
+//           <option value="High">High</option>
+//           <option value="Medium">Medium</option>
+//           <option value="Low">Low</option>
+//           <option value="Do Not Know">Do Not Know</option>
+//         </select>
+//         <label style={{ fontSize: '15px' }}>Interest Level</label>
+
+//         </div>
+    
+
+//         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+//         <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange}   style={{height: '45px' }}  placeholder="Visit summary"  />
+
+//         <label style={{ fontSize: '15px' }}>Visit Summ...</label>
+
+// </div>
+
+// <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+
+//         <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} style={{height: '45px' }}  placeholder="Next Action"  />
+//         <label style={{ fontSize: '15px' }}>Next Action</label>
+
+// </div>
+
+
+             
+  //            <div style={{ width: '95%', height: '140px', overflow: 'hidden' }}>
+  //            {capturedImageUrl =='' && (
+  //           <Webcam
+  //             audio={false}
+  //             ref={webcamRef}
+  //             screenshotFormat="image/jpeg"
+             
+  //             videoConstraints={videoConstraints} // Use dynamic constraints based on device
+  //           />
+  //           )}
+  // {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
+  //           </div>
+        
+ 
+
+    
+       
+// <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+//         <button type="button" onClick={captureImage}>Capture business cards</button>
+
+
+
+       
+
+//         <button type="submit">Submit</button>
+//         </div>
+//         <div className="recording-controls">
+//           <button
+//             type="button"
+//             className={`record-button ${isRecording ? 'recording' : ''}`}
+//             onClick={isRecording ? stopRecording : startRecording}
+//           >
+//             {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
+//           </button>
+//         </div>
+//       </form>
+
+      
+     
+//     </div>   
+
+   
+//   );
+
+// return (
+//   <div className="App">
+//     {isLoading && <div className="loading">Loading...</div>}
+//     {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
+    
+//     <form className="responsive-form" onSubmit={handleSubmit}>
+//       {!isUsernamePhoneHidden && (
+//         <>
+//           <div className="form-group">
+//             <label>Your Name</label>
+//             <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Your name" />
+//           </div>
+//           <div className="form-group">
+//             <label>Your Phone</label>
+//             <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Your phone number" />
+//           </div>
+//         </>
+//       )}
+  
+//       {!boardExists && (
+//         <div className="form-group">
+//           <label>Board Value</label>
+//           <input type="text" name="board" value={formData.board} onChange={handleChange} placeholder="Board value" />
+//         </div>
+//       )}
+  
+//       <div className="form-group">
+//         <label>Client Name</label>
+//         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} placeholder="Client name" />
+//       </div>
+  
+//       <div className="switch-container">
+//         <div className="switch-group">
+//           <label>Live Demo</label>
+//           <Switch checked={formData.liveDemoDelivered} onChange={() => handleSwitchChange('liveDemoDelivered')} />
+//         </div>
+//         <div className="switch-group">
+//           <label>Re-Visit</label>
+//           <Switch  checked={formData.revisit} onChange={() => handleSwitchChange('revisit')} />
+//         </div>
+//         <div className="switch-group">
+//           <label>Met GM</label>
+//           <Switch checked={formData.metGM} onChange={() => handleSwitchChange('metGM')} />
+//         </div>
+//         <div className="switch-group">
+//           <label>Met SD</label>
+//           <Switch checked={formData.metSD} onChange={() => handleSwitchChange('metSD')} />
+//         </div>
+//       </div>
+  
+//       <div className="form-group">
+//         <label>Interest Level</label>
+//         <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
+//           <option value="">Select Interest Level</option>
+//           <option value="High">High</option>
+//           <option value="Medium">Medium</option>
+//           <option value="Low">Low</option>
+//           <option value="Do Not Know">Do Not Know</option>
+//         </select>
+//       </div>
+  
+//       <div className="form-group">
+//         <label>Visit Summary</label>
+//         <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} placeholder="Visit summary" />
+//       </div>
+  
+//       <div className="form-group">
+//         <label>Next Action</label>
+//         <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} placeholder="Next Action" />
+//       </div>
+  
+//       <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>
+//              {capturedImageUrl =='' && (
+//             <Webcam
+//               audio={false}
+//               ref={webcamRef}
+//               screenshotFormat="image/jpeg"
+             
+//               videoConstraints={videoConstraints} // Use dynamic constraints based on device
+//             />
+//             )}
+//   {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
+//             </div>
+        
+            
+
+//       <div className="capture-container">
+//         <button type="button" onClick={captureImage}>Capture business cards</button>
+//         <button type="submit">Submit</button>
+//       </div>
+  
+//       <div className="recording-controls">
+//         <button type="button" className={`record-button ${isRecording ? 'recording' : ''}`} onClick={isRecording ? stopRecording : startRecording}>
+//           {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
+//         </button>
+//       </div>
+      
+
+//     </form>
+//   </div>
+//   );
+  
+return (
+  <div className="App">
+    {isLoading && <div className="loading">Loading...</div>}
+    {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
+    
+
+   
+       {isLoading && <div className="loading">Loading...</div>}
+       {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
+      
+
+    
+
+
+    <form className="responsive-form" onSubmit={handleSubmit}>
+      {!isUsernamePhoneHidden && (
+        <>
+          <div className="form-group">
+            <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Your name" />
+            <label>Your Name</label>
+          </div>
+          <div className="form-group">
+            <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Your phone number" />
+            <label>Your Phone</label>
+          </div>
+        </>
+      )}
+
+      {!boardExists && (
+        <div className="form-group">
+          <input type="text" name="board" value={formData.board} onChange={handleChange} placeholder="Board value" />
+          <label>Sales Board</label>
         </div>
       )}
 
+      <div className="form-group">
+        <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} placeholder="Client name" />
+        <label>Client Name</label>
+      </div>
 
-
-<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-        <label style={{ fontSize: '15px' }}>Dealer Name</label>
-        <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} />
+      <div className="switch-container">
+        <div className="switch-group">
+          <Switch checked={formData.liveDemoDelivered} onChange={() => handleSwitchChange('liveDemoDelivered')} />
+          <label>Live Demo</label>
         </div>
+        <div className="switch-group">
+          <Switch checked={formData.revisit} onChange={() => handleSwitchChange('revisit')} />
+          <label>Re-Visit</label>
+        </div>
+        <div className="switch-group">
+          <Switch checked={formData.metGM} onChange={() => handleSwitchChange('metGM')} />
+          <label>Met GM</label>
+        </div>
+        <div className="switch-group">
+          <Switch checked={formData.metSD} onChange={() => handleSwitchChange('metSD')} />
+          <label>Met SD</label>
+        </div>
+      </div>
 
-<div style={{ display: 'flex', alignItems: 'center',justifyContent:'center', gap: '15px' }}>
-  <div style={{ display: 'flex', alignItems: 'center'}}>
-    <label style={{ fontSize: '15px' }}>Live Demo Delivered</label>
-    <Switch 
-      checked={formData.liveDemoDelivered} 
-     
-      onChange={() => handleSwitchChange('liveDemoDelivered')}
-    />
-  </div>
-  <div class="vertical-line"></div>
-  <div style={{ display: 'flex', alignItems: 'center'}}>
-    <label style={{ fontSize: '15px' }}>Met GM</label>
-    <Switch 
-      checked={formData.metGM} 
-      onChange={() => handleSwitchChange('metGM')}  
-         />
-  </div>
-  <div class="vertical-line"></div>
-  <div style={{ display: 'flex', alignItems: 'center'}}>
-    <label style={{ fontSize: '15px' }}>Met SD</label>
-    <Switch 
-      checked={formData.metSD} 
-      onChange={() => handleSwitchChange('metSD')} 
-    />
-  </div>
-  <div class="vertical-line"></div>
-  
-<div style={{ display: 'flex', alignItems: 'center'}}>
-
-<label style={{ fontSize: '15px' }}>Re-Visit</label>
-<Switch 
-      checked={formData.revisit} 
-      onChange={() => handleSwitchChange('revisit')} 
-    />
-
-</div>
-</div>
-          
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-        <label style={{ fontSize: '15px' }}>Interest Level</label>
+      <div className="form-group">
         <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
           <option value="">Select Interest Level</option>
           <option value="High">High</option>
@@ -713,128 +946,55 @@ async function getBoardValue(phoneNumber) {
           <option value="Low">Low</option>
           <option value="Do Not Know">Do Not Know</option>
         </select>
+        <label>Interest Level</label>
+      </div>
 
-        </div>
-    
+      <div className="form-group">
+        <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} placeholder="Visit summary" />
+        <label>Visit Summary</label>
+      </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+      <div className="form-group">
+        <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} placeholder="Next Action" />
+        <label>Next Action</label>
+      </div>
 
-        <label style={{ fontSize: '15px' }}>Visit Summary</label>
-        <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange}   style={{height: '40px' }} />
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-        <label style={{ fontSize: '15px' }}>Next Action</label>
-        <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} style={{height: '40px' }}  />
-</div>
-
-{capturedImageUrl =='' && (
-             
- 
-            <Webcam
-              audio={false}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-              height={200}
-              width={200}
-              videoConstraints={videoConstraints} // Use dynamic constraints based on device
-            />
-        
+      <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>
+        {capturedImageUrl === '' && (
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={videoConstraints}
+          />
         )}
+        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
+      </div>
 
-        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured"  style={{ width: '100%', height: '200px', objectFit:'contain'}} />}
-
-        {/* {isCameraVisible &&(
-         <div style={{ width: '80%', height: '200px',overflow :'hidden'}}>
-            <Webcam
-              audio={false}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-              videoConstraints={videoConstraints}
-              style={{
-                width: '100%',  // Ensure the webcam uses full width
-                height: '200px',
-               
-                 // Set the height to match the container
-               // Ensure video fills the container while maintaining aspect ratio
-                borderRadius: '8px' // Optional: rounded corners for aesthetics
-              }}
-           // Use dynamic constraints based on device
-            />
-            </div>
-        )} */}
-
-       {/* {showDialog && (
-        <Dialog
-          message={dialogMessage}
-          onNewReport={handleNewReportClick}
-        />
-      )} */}
-
-{/* {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" style={{     
-        width: '100%',
-        height: '200px', // Set the height to match the webcam
-        borderRadius: '8px',
-        objectFit:'contain',
-     // Ensures the image fills the container while maintaining aspect ratio
-        marginTop: '10px', }} />} */}
-
-
-<div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
+      <div className="capture-container">
         <button type="button" onClick={captureImage}>Capture business cards</button>
-
-
-
-       
-
         <button type="submit">Submit</button>
-        </div>
-        <div className="recording-controls">
-          <button
-            type="button"
-            className={`record-button ${isRecording ? 'recording' : ''}`}
-            onClick={isRecording ? stopRecording : startRecording}
-          >
-            {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
-          </button>
-        </div>
-      </form>
+      </div>
 
-      
-     
-    </div>   
+      <div className="recording-controls">
+        <button type="button" className={`record-button ${isRecording ? 'recording' : ''}`} onClick={isRecording ? stopRecording : startRecording}>
+          {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
+        </button>
+      </div>
+    </form>
+  </div>
+);
 
-   
-  );
 }
 
-// const Dialog = ({ message, onNewReport }) => {
-//   return (
-//     <div className="dialog-overlay">
-//       <div className="dialog">
-//         <p>{message}</p>
-//         <button onClick={onNewReport}>New Report</button>
-//       </div>
-//     </div>
-//   );
-// };
 
-// const SuccessPage = ({ onBack }) => {
-//   return (
-//     <div className="success-page">
-//       <h2>Submission Successful!</h2>
-//       <p>Your report has been submitted successfully.</p>
-//       <button onClick={onBack}>Back to Form</button>
-//     </div>
-//   );
-// };
 const SuccessPage = () => (
   <div className="success-container">
     <h2>Success!</h2>
     <p>Your data has been submitted successfully.</p>
-    <a href="/" style={{color: 'blue'}}>Go Back</a>
+    <a href="/" style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>
+  Go Back
+</a>
 
   </div>
 );

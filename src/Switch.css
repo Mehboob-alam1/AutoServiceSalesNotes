@@ -2,8 +2,9 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 34px;
+    width: 38px;
     height: 20px;
+    
   }
   
   .switch input {
