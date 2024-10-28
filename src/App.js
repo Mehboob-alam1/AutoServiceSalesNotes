@@ -107,10 +107,7 @@ function App() {
     }
 
     setShowDialog(false); // Hide the dialog
-    // handlePermissionRequest();
-
-
-
+   
     const checkLocationPermission = async () => {
       const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
   
@@ -149,10 +146,14 @@ function App() {
   
   }, [formData.username]);   ///
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
  
   const handlePermissionRequest = async () => {
     try {
@@ -165,11 +166,6 @@ function App() {
   };
 
   const handleBoardValueSubmit = async () => {
-    // if (newBoardValue.trim() === '') {
-    //   alert('Please enter a valid board value.');
-    //   return;
-    // }
-
     const boardRef = databaseRef(database, `users/${formData.username}/board`);
     await set(boardRef, newBoardValue);
 
@@ -333,14 +329,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const isAllFieldsFilled = formData.username && formData.phoneNumber && formData.retailName && formData.visitSummary && formData.nextAction && formData.interestLevel && formData.metGM && formData.metSD && formData.liveDemoDelivered;
-
-    // if (!isAllFieldsFilled) {
-    //   alert('Please fill all fields .');
-    //   return;
-    // }
-   
-    ///
+  
 
 
     if (!formData.username) {
@@ -383,31 +372,7 @@ function App() {
 
     }
 
-  
-    
-    // if (!formData.metGM) {
-    //   alert('Please specify if you met GM.');
-    //   return;
 
-    // }
-    
-    // if (!formData.metSD) {
-    //   alert('Please specify if you met SD.');
-    //   return;
-
-    // }
-    
-    // if (!formData.liveDemoDelivered) {
-    //   alert('Please indicate if a Live Demo was delivered.');
-    //   return;
-
-    // }
-    
-
-
-
-    ///
- 
     handleBoardValueSubmit();
 
     setShowProgress(true);
@@ -583,302 +548,7 @@ async function getBoardValue(phoneNumber) {
   }
 }
 
-  
-  //
-  
-  
-
-//   return (
- 
-
-  
-//     <div className="App">
-       
-      
-     
-//       {isLoading && <div className="loading">Loading...</div>}
-//       {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
-      
-
-//       <form onSubmit={handleSubmit}>
-
-//      { !isUsernamePhoneHidden && (
-// <>
-// <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-
-//   <input type="text" name="username" value={formData.username} onChange={handleChange} style={{height: '45px'}} placeholder="Your name"/>
-//   <label style={{ fontSize: '15px' }}>Your Name.</label>
-
-// </div>
-      
-
-
-//   <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-//         <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} style={{height: '45px' }} placeholder="Your phone number" />
-//         <label  style={{ fontSize: '15px' }}>Your Phone</label>
-
-// </div>
-// </>
-//      )}  
-
-// {!boardExists && (
-//         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-//           <input
-//             type="text"
-//             name="board"
-//             value={formData.board}
-//             onChange={handleChange}
-//             style={{height: '45px' }}
-//             placeholder="Board value"
-//           />
-//                     <label style={{ fontSize: '15px' }}>Board Value</label>
-
-//         </div>
-//       )}
-
-
-
-// <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-//         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} style={{height: '45px' }}  placeholder="Client name" />
-//         <label style={{ fontSize: '15px' }}>Client Name</label>
-
-//         </div>
-
-
-
-//         <div style={{ display: 'flex',justifyContent:'center', gap: '5px',flexDirection:'column' }}>
-
-          
-//   <div style={{display:'flex', flexDirection:'row'}}>
-//   <div style={{ display: 'flex', alignItems: 'center'}}>
-//     <label style={{ fontSize: '15px',marginRight:'20px' }} >Live Demo</label>
-//     <Switch 
-//       checked={formData.liveDemoDelivered} 
-     
-//       onChange={() => handleSwitchChange('liveDemoDelivered')}
-//     />
-//   </div>
-  
-
-//   <div style={{ display: 'flex', alignItems: 'center',paddingLeft:'20px'}}>
-
-// <label style={{ fontSize: '15px',paddingLeft:'100px',marginRight:'20px'}}>Re-Visit</label>
-// <Switch 
-//       checked={formData.revisit} 
-//       onChange={() => handleSwitchChange('revisit')} 
-//     />
-
-// </div>
-// </div>
-
-
-
-// <div style={{display:'flex',flexDirection:'row'}}>
-// <div style={{ display: 'flex', alignItems: 'center'}}>
-//     <label style={{ fontSize: '15px',marginRight:'40px'}}>Met GM</label>
-//     <Switch 
-      
-//       checked={formData.metGM} 
-//       onChange={() => handleSwitchChange('metGM')}  
-//          />
-//   </div>
-//   <div style={{ display: 'flex', alignItems: 'center'}}>
-//     <label style={{ fontSize: '15px',paddingLeft:'117px',marginRight:'20px'}}>Met SD</label>
-//     <Switch 
-//       checked={formData.metSD} 
-//       onChange={() => handleSwitchChange('metSD')} 
-//     />
-//   </div>
-//  </div>
-
-
-
-// </div>
-
-
-
-
-
-//         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-//         <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange} style={{height:'45px'}} >
-//           <option value="">Select Interest Level</option>
-//           <option value="High">High</option>
-//           <option value="Medium">Medium</option>
-//           <option value="Low">Low</option>
-//           <option value="Do Not Know">Do Not Know</option>
-//         </select>
-//         <label style={{ fontSize: '15px' }}>Interest Level</label>
-
-//         </div>
     
-
-//         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-//         <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange}   style={{height: '45px' }}  placeholder="Visit summary"  />
-
-//         <label style={{ fontSize: '15px' }}>Visit Summ...</label>
-
-// </div>
-
-// <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-
-//         <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} style={{height: '45px' }}  placeholder="Next Action"  />
-//         <label style={{ fontSize: '15px' }}>Next Action</label>
-
-// </div>
-
-
-             
-  //            <div style={{ width: '95%', height: '140px', overflow: 'hidden' }}>
-  //            {capturedImageUrl =='' && (
-  //           <Webcam
-  //             audio={false}
-  //             ref={webcamRef}
-  //             screenshotFormat="image/jpeg"
-             
-  //             videoConstraints={videoConstraints} // Use dynamic constraints based on device
-  //           />
-  //           )}
-  // {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
-  //           </div>
-        
- 
-
-    
-       
-// <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-
-//         <button type="button" onClick={captureImage}>Capture business cards</button>
-
-
-
-       
-
-//         <button type="submit">Submit</button>
-//         </div>
-//         <div className="recording-controls">
-//           <button
-//             type="button"
-//             className={`record-button ${isRecording ? 'recording' : ''}`}
-//             onClick={isRecording ? stopRecording : startRecording}
-//           >
-//             {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
-//           </button>
-//         </div>
-//       </form>
-
-      
-     
-//     </div>   
-
-   
-//   );
-
-// return (
-//   <div className="App">
-//     {isLoading && <div className="loading">Loading...</div>}
-//     {showProgress && <div className="progress-dialog">Please wait while uploading...</div>}
-    
-//     <form className="responsive-form" onSubmit={handleSubmit}>
-//       {!isUsernamePhoneHidden && (
-//         <>
-//           <div className="form-group">
-//             <label>Your Name</label>
-//             <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Your name" />
-//           </div>
-//           <div className="form-group">
-//             <label>Your Phone</label>
-//             <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Your phone number" />
-//           </div>
-//         </>
-//       )}
-  
-//       {!boardExists && (
-//         <div className="form-group">
-//           <label>Board Value</label>
-//           <input type="text" name="board" value={formData.board} onChange={handleChange} placeholder="Board value" />
-//         </div>
-//       )}
-  
-//       <div className="form-group">
-//         <label>Client Name</label>
-//         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} placeholder="Client name" />
-//       </div>
-  
-//       <div className="switch-container">
-//         <div className="switch-group">
-//           <label>Live Demo</label>
-//           <Switch checked={formData.liveDemoDelivered} onChange={() => handleSwitchChange('liveDemoDelivered')} />
-//         </div>
-//         <div className="switch-group">
-//           <label>Re-Visit</label>
-//           <Switch  checked={formData.revisit} onChange={() => handleSwitchChange('revisit')} />
-//         </div>
-//         <div className="switch-group">
-//           <label>Met GM</label>
-//           <Switch checked={formData.metGM} onChange={() => handleSwitchChange('metGM')} />
-//         </div>
-//         <div className="switch-group">
-//           <label>Met SD</label>
-//           <Switch checked={formData.metSD} onChange={() => handleSwitchChange('metSD')} />
-//         </div>
-//       </div>
-  
-//       <div className="form-group">
-//         <label>Interest Level</label>
-//         <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
-//           <option value="">Select Interest Level</option>
-//           <option value="High">High</option>
-//           <option value="Medium">Medium</option>
-//           <option value="Low">Low</option>
-//           <option value="Do Not Know">Do Not Know</option>
-//         </select>
-//       </div>
-  
-//       <div className="form-group">
-//         <label>Visit Summary</label>
-//         <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} placeholder="Visit summary" />
-//       </div>
-  
-//       <div className="form-group">
-//         <label>Next Action</label>
-//         <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} placeholder="Next Action" />
-//       </div>
-  
-//       <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>
-//              {capturedImageUrl =='' && (
-//             <Webcam
-//               audio={false}
-//               ref={webcamRef}
-//               screenshotFormat="image/jpeg"
-             
-//               videoConstraints={videoConstraints} // Use dynamic constraints based on device
-//             />
-//             )}
-//   {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
-//             </div>
-        
-            
-
-//       <div className="capture-container">
-//         <button type="button" onClick={captureImage}>Capture business cards</button>
-//         <button type="submit">Submit</button>
-//       </div>
-  
-//       <div className="recording-controls">
-//         <button type="button" className={`record-button ${isRecording ? 'recording' : ''}`} onClick={isRecording ? stopRecording : startRecording}>
-//           {isRecording ? 'Stop Record Session / Training' : 'Record Session / Training'}
-//         </button>
-//       </div>
-      
-
-//     </form>
-//   </div>
-//   );
-  
 return (
   <div className="App">
     {isLoading && <div className="loading">Loading...</div>}
@@ -897,8 +567,10 @@ return (
       {!isUsernamePhoneHidden && (
         <>
           <div className="form-group">
+
             <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Your name" />
             <label>Your Name</label>
+
           </div>
           <div className="form-group">
             <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Your phone number" />
@@ -906,6 +578,8 @@ return (
           </div>
         </>
       )}
+
+     
 
       {!boardExists && (
         <div className="form-group">
@@ -939,7 +613,7 @@ return (
       </div>
 
       <div className="form-group">
-        <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange}>
+        <select name="interestLevel" value={formData.interestLevel} onChange={handleInterestChange} >
           <option value="">Select Interest Level</option>
           <option value="High">High</option>
           <option value="Medium">Medium</option>
