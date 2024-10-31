@@ -132,7 +132,7 @@ function App() {
       // Detect if the device is mobile or desktop
       const userAgent = navigator.userAgent;
       if (/Android/i.test(userAgent) || /iPhone|iPad|iPod/i.test(userAgent)) {
-        setVideoConstraints({ facingMode: { exact: 'environment' } }); // Back camera for mobile
+        setVideoConstraints({ facingMode: { exact: 'environment' }}); // Back camera for mobile
       } else {
         setVideoConstraints({ facingMode: 'user' }); // Front camera for desktop
       }
@@ -185,11 +185,31 @@ function App() {
 
   const captureImage = () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    if (imageSrc) {
-      setImageUrl(imageSrc);
-      setCapturedImageUrl(imageSrc);
-      setIsCameraVisible(false);
-    }
+
+    // Code to crop the image
+    const img = new Image();
+    img.src = imageSrc;
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;           // Keep the original width
+      canvas.height = 140;                // Set height to match your div
+  
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, img.width, 140, 0, 0, img.width, 140);
+  
+      // Get the cropped image data URL and use it
+      const croppedImageUrl = canvas.toDataURL("image/jpeg");
+  
+      // Now send croppedImageUrl to Slack
+
+      if (croppedImageUrl) {
+        setImageUrl(croppedImageUrl);
+        setCapturedImageUrl(imageSrc);
+        setIsCameraVisible(false);
+      }
+    };
+    
+   
   };
   
   const handleSwitchChange = (name) => {
@@ -569,12 +589,10 @@ return (
           <div className="form-group">
 
             <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Your name" />
-            <label>Your Name</label>
 
           </div>
           <div className="form-group">
             <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Your phone number" />
-            <label>Your Phone</label>
           </div>
         </>
       )}
@@ -584,13 +602,11 @@ return (
       {!boardExists && (
         <div className="form-group">
           <input type="text" name="board" value={formData.board} onChange={handleChange} placeholder="Board value" />
-          <label>Sales Board</label>
         </div>
       )}
 
       <div className="form-group">
         <input type="text" name="retailName" value={formData.retailName} onChange={handleChange} placeholder="Client name" />
-        <label>Client Name</label>
       </div>
 
       <div className="switch-container">
@@ -620,17 +636,14 @@ return (
           <option value="Low">Low</option>
           <option value="Do Not Know">Do Not Know</option>
         </select>
-        <label>Interest Level</label>
       </div>
 
       <div className="form-group">
         <textarea name="visitSummary" value={formData.visitSummary} onChange={handleChange} placeholder="Visit summary" />
-        <label>Visit Summary</label>
       </div>
 
       <div className="form-group">
         <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} placeholder="Next Action" />
-        <label>Next Action</label>
       </div>
 
       <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>

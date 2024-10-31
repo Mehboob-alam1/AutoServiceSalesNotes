@@ -231,10 +231,14 @@ button:hover {
     margin-top: 10px;
   }
 
-  .captured-image,
-  .webcam {
-    width: 100%;
-    height: auto;
-  }
+
+
+  
+  .form-group input::placeholder,
+.form-group select::placeholder,
+.form-group textarea::placeholder {
+    color: white;
+    opacity: 1; 
+}
 }
 
