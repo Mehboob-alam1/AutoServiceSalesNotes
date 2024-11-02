@@ -140,6 +140,10 @@ button:hover {
   height: 100vh;
   text-align: center;
 }
+
+
+
+
 @media (max-width: 600px) {
   body {
     margin: 0;
@@ -230,8 +234,17 @@ button:hover {
     width: 100%;
     margin-top: 10px;
   }
-
-
+/*
+  .safe-area {
+    padding: 5vmin;               5% of the viewport’s minimum dimension 
+    overflow: hidden;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  */
 
   
   .form-group input::placeholder,
@@ -240,5 +253,8 @@ button:hover {
     color: white;
     opacity: 1; 
 }
+
+
+
 }
 

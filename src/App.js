@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect,useCallback } from 'react';
 import Webcam from 'react-webcam';
 import { BrowserRouter as Router, Route, useNavigate, Routes } from 'react-router-dom'; // Import Router components
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'; // Correct import for Firebase storage reference
@@ -132,9 +132,18 @@ function App() {
       // Detect if the device is mobile or desktop
       const userAgent = navigator.userAgent;
       if (/Android/i.test(userAgent) || /iPhone|iPad|iPod/i.test(userAgent)) {
-        setVideoConstraints({ facingMode: { exact: 'environment' }}); // Back camera for mobile
+        setVideoConstraints({
+
+        facingMode: { exact: 'environment' },
+        width: 1280 ,     // Adjust for desired resolution
+        height: 680,
+
+        //
+
+      }); // Back camera for mobile
       } else {
-        setVideoConstraints({ facingMode: 'user' }); // Front camera for desktop
+        setVideoConstraints({ facingMode: 'user',width: 1280,  // Adjust for desired resolution
+        height: 720 }); // Front camera for desktop
       }
 
       if (formData.username==null || storedUsername==null) {
@@ -183,35 +192,117 @@ function App() {
 
   
 
-  const captureImage = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-
-    // Code to crop the image
-    const img = new Image();
-    img.src = imageSrc;
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;           // Keep the original width
-      canvas.height = 140;                // Set height to match your div
-  
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, img.width, 140, 0, 0, img.width, 140);
-  
-      // Get the cropped image data URL and use it
-      const croppedImageUrl = canvas.toDataURL("image/jpeg");
-  
-      // Now send croppedImageUrl to Slack
-
-      if (croppedImageUrl) {
-        setImageUrl(croppedImageUrl);
-        setCapturedImageUrl(imageSrc);
-        setIsCameraVisible(false);
-      }
-    };
+  // const captureImage = () => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
     
+  //   if (imageSrc) {
+  //     setImageUrl(imageSrc);
+  //     setCapturedImageUrl(imageSrc);
+  //     setIsCameraVisible(false);
+  //   }
    
+  // };
+
+  const captureImage = useCallback(() => {
+    if (capturedImageUrl) {
+      // Clear the captured image to allow recapture
+      setCapturedImageUrl('');
+      setIsCameraVisible(true);
+    } else {
+      // const imageSrc = webcamRef.current.getScreenshot();
+      // if (imageSrc) {
+      //   setCapturedImageUrl(imageSrc);
+      //   setIsCameraVisible(false);
+      // }
+
+      const imageSrc = webcamRef.current.getScreenshot();
+
+  // Code to crop the image
+  const img = new Image();
+  img.src = imageSrc;
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+
+    // Set the target crop dimensions (adjust if needed)
+    const targetHeight = 260; // Height for the cropped area
+    const targetWidth = img.width; // Width for the cropped area, adjust as per card width
+
+    // Calculate x and y to center the cropped area
+    const cropX = (img.width - targetWidth) / 2;
+    const cropY = (img.height - targetHeight) / 2;
+
+    // Set canvas to match cropped dimensions
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(
+      img,
+      cropX, cropY, targetWidth, targetHeight, // Source crop area
+      0, 0, targetWidth, targetHeight // Canvas target area
+    );
+
+    // Get the cropped image data URL and use it
+    const croppedImageUrl = canvas.toDataURL("image/jpeg");
+
+    if (croppedImageUrl) {
+      setImageUrl(croppedImageUrl);  // Upload Cropped Image
+      setCapturedImageUrl(imageSrc); // Display Good image
+      setIsCameraVisible(false);
+
+      // Optional: Send `croppedImageUrl` to Slack here
+    }
   };
+    }
+  }, [capturedImageUrl]);
   
+  // const captureImage = useCallback(() => {
+  //   if (capturedImageUrl) {
+  //     // Clear the captured image to allow recapture
+  //     setCapturedImageUrl('');
+  //     setIsCameraVisible(true);
+  //   } else {
+  //     const imageSrc = webcamRef.current.getScreenshot();
+  //     if (imageSrc) {
+  //       // Create a new image element and load the captured screenshot
+  //       const img = new Image();
+  //       img.src = imageSrc;
+  //       img.onload = () => {
+  //         // Define the crop dimensions based on the card area
+  //         const cropWidth = 1280;  // Target width of the card area
+  //         const cropHeight = 680;  // Target height of the card area
+  //         const cropX = (img.width - cropWidth) / 2; // Center crop horizontally
+  //         const cropY = (img.height - cropHeight) / 2; // Center crop vertically
+  
+  //         // Create a canvas for cropping
+  //         const canvas = document.createElement("canvas");
+  //         canvas.width = cropWidth;
+  //         canvas.height = cropHeight;
+  
+  //         const ctx = canvas.getContext("2d");
+  //         ctx.drawImage(
+  //           img,
+  //           cropX, cropY, cropWidth, cropHeight, // Source dimensions and position
+  //           0, 0, cropWidth, cropHeight // Target dimensions and position
+  //         );
+  
+  //         // Convert the canvas to a data URL for the cropped image
+  //         const croppedImageUrl = canvas.toDataURL("image/jpeg");
+  
+  //         // Set the cropped image URL to display and for sending to Slack
+  //         setCapturedImageUrl(croppedImageUrl);
+  //         setIsCameraVisible(false);
+  
+      
+  //       };
+  //     }
+  //   }
+  // }, [capturedImageUrl]);
+  
+ 
+  
+  
+
   const handleSwitchChange = (name) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -646,20 +737,43 @@ return (
         <textarea name="nextAction" value={formData.nextAction} onChange={handleChange} placeholder="Next Action" />
       </div>
 
-      <div style={{ width: '100%', height: '140px', overflow: 'hidden' }}>
+      <div className="webcam-container" style={{ width: '100%', height: '260px', overflow: 'hidden' }}>
         {capturedImageUrl === '' && (
+          <div className="safe-area">
+
           <Webcam
             audio={false}
             ref={webcamRef}
+            
             screenshotFormat="image/jpeg"
             videoConstraints={videoConstraints}
+            style={{
+              width: '100%',
+              height: '260px',
+              
+              aspectRatio: '16 / 9',
+              objectFit: 'cover'         // Ensures image fills container width
+
+            }}
           />
+</div>
+
         )}
-        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image" />}
+        {capturedImageUrl && <img src={capturedImageUrl} alt="Captured" className="captured-image"  style={{
+              width: '100%',
+              height: '260px',
+              objectFit: 'cover',
+              aspectRatio: '16 / 9'       // Keeps captured image in landscape
+            }} 
+            />
+            }
       </div>
 
       <div className="capture-container">
-        <button type="button" onClick={captureImage}>Capture business cards</button>
+      <button type="button" onClick={captureImage}>
+        {capturedImageUrl ? 'Recapture Business Card' : 'Capture Business Card'}
+      </button>
+
         <button type="submit">Submit</button>
       </div>
 
